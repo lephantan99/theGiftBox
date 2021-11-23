@@ -19,7 +19,12 @@
         <i class="w-12 h-12 text-4xl el-icon-shopping-cart-full"></i>
       </div>
     </div>
-    <div>123</div>
+    <div class="mt-12 flex justify-between uppercase font-bold text-xl">
+      <div>Quà tặng cho Nữ</div>
+      <div>Quà tặng cho Nam</div>
+      <div>Ưu đãi</div>
+      <div>Quà tặng dịp lễ</div>
+    </div>
   </div>
 </template>
 
