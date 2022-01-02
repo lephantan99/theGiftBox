@@ -16,13 +16,13 @@ export const sidebar = {
       ],
     },
     {
-      name: 'blogs-management',
+      name: 'posts-management',
       components: [
         {
-          module: 'blog', // Module name for localization
+          module: 'post', // Module name for localization
           icon: ['fas', 'newspaper'], // Fontawesome or Element UI icon
           color: 'var(--color-yellow)', // Must be CSS variables
-          route: { name: 'blogs' }, // path or route object ({ name: 'route-name',... })
+          route: { name: 'posts' }, // path or route object ({ name: 'route-name',... })
           permission: ALL, // ALL or match ./auth.js
         },
         {
@@ -39,6 +39,32 @@ export const sidebar = {
           route: { name: 'tags' }, // path or route object ({ name: 'route-name',... })
           permission: ALL, // ALL or match ./auth.js
         },
+      ],
+    },
+    {
+      name: 'product-management',
+      components: [
+        {
+          module: 'product', // Module name for localization
+          icon: ['fas', 'newspaper'], // Fontawesome or Element UI icon
+          color: 'var(--color-yellow)', // Must be CSS variables
+          route: { name: 'product' }, // path or route object ({ name: 'route-name',... })
+          permission: ALL, // ALL or match ./auth.js
+        },
+        {
+          module: 'category', // Module name for localization
+          icon: ['fas', 'layer-group'], // Fontawesome or Element UI icon
+          color: 'var(--color-yellow)', // Must be CSS variables
+          route: { name: 'categories' }, // path or route object ({ name: 'route-name',... })
+          permission: ALL, // ALL or match ./auth.js
+        },
+        // {
+        //   module: 'tag', // Module name for localization
+        //   icon: ['fas', 'tags'], // Fontawesome or Element UI icon
+        //   color: 'var(--color-yellow)', // Must be CSS variables
+        //   route: { name: 'tags' }, // path or route object ({ name: 'route-name',... })
+        //   permission: ALL, // ALL or match ./auth.js
+        // },
       ],
     },
   ],

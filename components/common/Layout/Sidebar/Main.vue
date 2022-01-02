@@ -21,12 +21,13 @@
           <!--  -->
           <img
             src="~/assets/img/logo.png"
+            alt="Minh Châu Việt logo"
             class="mt-8 mx-auto cursor-pointer"
             style="height: 60px"
             @click="$router.push(`/${roleGroup}`)"
           />
         </li>
-        <SidebarItem
+        <SidebarGroupItem
           v-for="group in sidebar.groups"
           :key="group.name"
           :group="group"
@@ -38,12 +39,12 @@
 
 <script>
 import { mapState } from 'vuex'
-import SidebarItem from './SidebarItem'
+import SidebarGroupItem from './SidebarGroupItem'
 import { sidebar } from '~/constants/config/base/sidebar'
 export default {
   name: 'Sidebar',
   components: {
-    SidebarItem,
+    SidebarGroupItem,
   },
   props: {
     minWidth: {
@@ -62,8 +63,11 @@ export default {
   },
   computed: {
     ...mapState({
-      sidebarCollapsed: (state) => state.sidebarCollapsed,
+      sidebarCollapsed: (state) => state.options.sidebarCollapsed,
     }),
+    roleGroup() {
+      return this.$store.getters['auth/roleGroup']
+    },
   },
 }
 </script>

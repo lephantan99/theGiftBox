@@ -18,5 +18,6 @@ export const authMutations = {
 export default {
   SET_AUTH(state, auth) {
     Vue.set(state, 'data', auth)
+    localStorage.setItem('auth', JSON.stringify(auth))
   },
 }

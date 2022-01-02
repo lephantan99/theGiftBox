@@ -1,7 +1,10 @@
 export default {
-  home: 'Trang chủ',
+  home: 'Dashboard',
   'blogs-management': 'Quản lý blogs',
-  blog: 'Blogs',
+  'posts-management': 'Quản lý bài viết',
+  'product-management': 'Quản lý sản phẩm',
+  post: 'Posts',
+  product: 'Products',
   category: 'Categories',
   tag: 'Tags',
 }

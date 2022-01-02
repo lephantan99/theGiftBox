@@ -6,4 +6,8 @@ export default () => ({
   sidebarCollapsed: false,
   serverReady: false,
   initialState: null,
+  options: {
+    sidebarCollapsed: false,
+    safeModeOn: false,
+  },
 })

@@ -14,27 +14,31 @@
           <el-button slot="append" icon="el-icon-search"></el-button>
         </el-input>
       </div>
-      <div class="w-1/6 flex justify-between">
-        <p>{{ $t('header.signInSignUp') }}</p>
-        <i class="w-12 h-12 text-4xl el-icon-shopping-cart-full"></i>
+      <div class="w-1/6 flex justify-between items-center">
+        <p v-if="!auth" class="cursor-pointer" @click="$router.push('/login')">
+          {{ $t('header.signInSignUp') }}
+        </p>
+        <i
+          class="w-12 h-12 text-4xl el-icon-shopping-cart-full cursor-pointer"
+        ></i>
       </div>
-    </div>
-    <div class="mt-12 flex justify-between uppercase font-bold text-xl">
-      <div>Quà tặng cho Nữ</div>
-      <div>Quà tặng cho Nam</div>
-      <div>Ưu đãi</div>
-      <div>Quà tặng dịp lễ</div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'Header',
   data() {
     return {
       input: '',
     }
+  },
+  computed: {
+    ...mapState({
+      auth: (state) => state.auth?.data,
+    }),
   },
 }
 </script>

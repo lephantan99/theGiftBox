@@ -2,7 +2,7 @@
   <section class="flex flex-col items-center h-screen md:flex-row">
     <div class="hidden w-full h-screen bg-white lg:block md:w-1/3 lg:w-2/3">
       <img
-        src="https://dummyimage.com/1000x800/F3F4F7/64748b"
+        src="https://images.pexels.com/photos/6690691/pexels-photo-6690691.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260"
         alt=""
         class="object-cover w-full h-full"
       />
@@ -17,7 +17,7 @@
           Đăng Nhập Tài Khoản
         </h1>
         <p class="italic text-gray-400">
-          Hãy đăng nhập để sử dụng S-Group Management System
+          Hãy đăng nhập để tiếp tục trải nghiệm The Gift Box
         </p>
         <!-- <form class="mt-6" action="#" method="POST">
           <div>
@@ -65,7 +65,7 @@
             Log In
           </button>
         </form> -->
-        <FormWrapper :model="form" class="mt-6" @onSubmit="handleSubmitForm">
+        <FormWrapper :model="form" class="mt-6" @onSubmit="postLogin">
           <InputWrapper prop="email" rules="required|email" label="Email">
             <el-input v-model="form.email" placeholder="mail_cua_ban@gmail.com">
             </el-input>
