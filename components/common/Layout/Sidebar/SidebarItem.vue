@@ -15,11 +15,7 @@
           'py-3 px-2': sidebarCollapsed,
         }"
         style="border-radius: 15px"
-        @click="
-          $router.push({
-            name: `admin/${component.route.name}`,
-          })
-        "
+        @click="$router.push(`/admin/${component.route.name}`)"
       >
         <span class="mx-1">
           <fa :icon="component.icon" />

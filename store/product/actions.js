@@ -53,12 +53,12 @@ export const productActions = {
 
 export default {
   async fetchData({ state, commit }) {
-    const response = await this.$authApi.get(
+    const response = await this.$clientApi.get(
       '/products?' + qs.stringify(state.query, { arrayFormat: 'repeat' })
     )
-    commit(productMutations.SET.DATA, response.data, { root: true })
+    commit(productMutations.SET.DATA, response.data.data, { root: true })
     // Fix total later
-    commit(productMutations.SET.TOTAL, response.total, { root: true })
+    commit(productMutations.SET.TOTAL, response.data.total, { root: true })
     return response.data
   },
   async fetchMoreData({ state, commit }) {

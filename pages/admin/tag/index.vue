@@ -1,5 +1,5 @@
 <template>
-  <div>product here</div>
+  <div>tag here</div>
 </template>
 <script>
 export default {

@@ -2,8 +2,9 @@ export default () => ({
   total: 0,
   data: [],
   query: {
-    offset: 0,
-    limit: 10,
+    page: 1,
+    count: 10,
+    pageCount: 2,
   },
   viewing: null,
   navigationTabs: [

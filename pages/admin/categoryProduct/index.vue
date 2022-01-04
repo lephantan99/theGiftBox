@@ -1,5 +1,5 @@
 <template>
-  <div>product here</div>
+  <div>category product here</div>
 </template>
 <script>
 export default {

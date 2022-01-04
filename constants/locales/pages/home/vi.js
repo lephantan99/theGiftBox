@@ -4,4 +4,6 @@ export default {
   login: 'Đăng nhập',
   logout: 'Đăng xuất',
   'to-secret': 'Đến trang được bảo mật',
+  filter: 'Lọc',
+  'reset-filter': 'Bỏ lọc',
 }

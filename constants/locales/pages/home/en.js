@@ -4,4 +4,6 @@ export default {
   login: 'Login',
   logout: 'Logout',
   'to-secret': 'To secret page',
+  filter: 'Fitler',
+  'reset-filter': 'Reset fitler',
 }

@@ -25,7 +25,7 @@ export default {
   display: flex !important;
   flex-direction: column !important;
   font-family: Montserrat, sans-serif;
-  width: 1440px !important;
+  max-width: 1440px !important;
   margin: auto;
 }
 </style>

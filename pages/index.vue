@@ -50,6 +50,7 @@ export default {
   async fetch() {
     try {
       this.$loading()
+      console.log('hereee')
       await this.fetchProducts()
       this.$loading().close()
     } catch (error) {
@@ -91,7 +92,7 @@ export default {
   },
   computed: mapState({
     locale: (state) => state.locale,
-    products: (state) => state.product.data.data,
+    products: (state) => state.product.data,
   }),
   methods: {
     ...mapActions({

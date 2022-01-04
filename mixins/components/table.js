@@ -5,6 +5,7 @@
 import qs from 'qs'
 export default {
   async fetch() {
+    console.log('get product')
     await this.$store.dispatch(this.moduleActions.FETCH.DATA)
     this.pushRouterQuery()
   },
@@ -66,6 +67,17 @@ export default {
       this.$fetch()
     },
     onRefresh() {
+      this.$store.commit(this.moduleMutations.CLEAR.QUERY)
+      this.$fetch()
+    },
+    onFilter(filter) {
+      this.$store.commit(this.moduleMutations.SET.QUERY, {
+        offset: 0,
+        s: filter,
+      })
+      this.$fetch()
+    },
+    onRefreshFilter() {
       this.$store.commit(this.moduleMutations.CLEAR.QUERY)
       this.$fetch()
     },

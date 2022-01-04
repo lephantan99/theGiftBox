@@ -1,0 +1,4 @@
+.btn {
+  // Warn by VS code, but it's okay
+  @apply flex items-center cursor-pointer mr-3 px-5 rounded-xl border-none duration-150 outline-none;
+}
