@@ -1,5 +1,5 @@
 <template>
-  <div>category product here</div>
+  <el-main></el-main>
 </template>
 <script>
 export default {

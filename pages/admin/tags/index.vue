@@ -22,9 +22,14 @@
       <!-- eslint-disable prettier/prettier -->
       <!-- Just disable prettier/prettier here for shorter code -->
       <!-- <el-table-column :label="$t('drinks.index.code')" prop="id" /> -->
-      <el-table-column :label="$t('tag.index.name')" prop="name" />
-      <el-table-column :label="$t('tag.index.description')" prop="description" />
-      <el-table-column :label="$t('tag.index.cost')" prop="cost" />
+      <el-table-column :label="$t('tag.index.name')" prop="enName" />
+      <el-table-column :label="$t('tag.index.createdBy')" prop="user.firstName" />
+      <el-table-column :label="$t('tag.index.createdAt')" prop="createdAt" >
+        <template slot-scope="scope">
+          {{ moment(scope.row.createdAt).format('DD/MM/YYYY') }}
+
+        </template>
+      </el-table-column>
       <!-- <el-table-column :label="$t('drinks.index.types')" prop="tag.name" /> -->
       <!-- eslint-enable prettier/prettier -->
     </DataTable>
@@ -35,6 +40,7 @@ import { Breadcrumb } from '~templates/Breadcrumb'
 import { DataTable } from '~templates/Table'
 import { mapState, mapActions, mapMutations } from 'vuex'
 // import { TagFilterBar } from '~/components/uncommon/Tag'
+import moment from 'moment'
 import { tagMutations as moduleMutations } from '~/store/tag/mutations'
 import { tagActions as moduleActions } from '~/store/tag/actions'
 import { tagGetters as moduleGetters } from '~/store/tag/getters'
@@ -81,6 +87,7 @@ export default {
     },
   },
   methods: {
+    moment,
     onClick() {
       console.log('onclick')
       this.$router.push('/123123')

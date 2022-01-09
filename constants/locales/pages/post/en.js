@@ -1,13 +1,16 @@
 export default {
-  title: 'Product Management',
+  title: 'Post Management',
   index: {
+    title: 'Title',
+    author: 'Author',
     name: 'Name',
     description: 'Description',
-    cost: 'Cost',
+    content: 'Content',
   },
   category: {
-    title: 'Product Category Management',
+    title: 'Category Management',
     name: 'Name',
     description: 'Description',
+    createdBy: 'Creator',
   },
 }

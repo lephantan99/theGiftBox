@@ -1,46 +1,46 @@
 import Vue from 'vue'
 
-export const categoryMutations = {
+export const tagMutations = {
   SET: {
     /**
      * Used to set the data array state of this module
      */
-    DATA: 'product/category/SET_DATA',
+    DATA: 'tag/SET_DATA',
     /**
      * Used to set the total state of this module
      */
-    TOTAL: 'product/category/SET_TOTAL',
+    TOTAL: 'tag/SET_TOTAL',
     /**
      * Used to set the query state of this module
      */
-    QUERY: 'product/category/SET_QUERY',
+    QUERY: 'tag/SET_QUERY',
     /**
      * Used to set the current being viewed user
      */
-    VIEWING: 'product/category/SET_VIEWING',
+    VIEWING: 'tag/SET_VIEWING',
   },
   CLEAR: {
     /**
      * Used to clear the query state of this module to default
      */
-    QUERY: 'product/category/CLEAR_QUERY',
+    QUERY: 'tag/CLEAR_QUERY',
   },
   TOGGLE: {},
   ADD: {
-    DATA: 'product/category/ADD_DATA',
+    DATA: 'tag/ADD_DATA',
   },
   REMOVE: {},
   INC: {
     /**
      * Use to increase the offset state of this module in query by 1
      */
-    QUERY_PAGE: 'product/category/INC_QUERY_PAGE',
+    QUERY_PAGE: 'tag/INC_QUERY_OFFSET',
   },
   SUB: {
     /**
      * Use to decrease the offset state of this module in query by 1
      */
-    QUERY_PAGE: 'product/category/SUB_QUERY_PAGE',
+    QUERY_PAGE: 'tag/SUB_QUERY_OFFSET',
   },
 }
 
@@ -66,10 +66,10 @@ export default {
       limit: 10,
     })
   },
-  INC_QUERY_PAGE(state) {
+  INC_QUERY_OFFSET(state) {
     Vue.set(state.query, 'offset', state.query.offset + state.query.limit)
   },
-  SUB_QUERY_PAGE(state) {
+  SUB_QUERY_OFFSET(state) {
     Vue.set(state.query, 'offset', state.query.offset - state.query.limit)
   },
 }

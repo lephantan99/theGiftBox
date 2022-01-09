@@ -15,13 +15,22 @@
         </el-input>
       </div>
       <div class="w-1/5 flex justify-between items-center">
-        <fa
+        <!-- <fa
           :icon="['far', 'heart']"
           class="w-8 h-8 mr-5 text-xl cursor-pointer mb-3"
-        />
-        <i
-          class="w-12 h-12 text-4xl el-icon-shopping-cart-full cursor-pointer"
-        ></i>
+        /> -->
+        <el-badge :value="wishlist.length" class="item w-[32px] mr-5">
+          <fa
+            :icon="['far', 'heart']"
+            class="w-8 h-8 mr-5 text-xl cursor-pointer mb-3"
+          />
+        </el-badge>
+        <el-badge :value="0" class="item w-[32px] mr-5">
+          <i
+            class="w-12 h-12 text-4xl el-icon-shopping-cart-full cursor-pointer"
+          ></i>
+        </el-badge>
+
         <p v-if="!auth" class="cursor-pointer" @click="$router.push('/login')">
           {{ $t('header.signInSignUp') }}
         </p>
@@ -51,6 +60,13 @@
         </p>
       </div>
     </div>
+    <div class="mt-12 flex justify-between uppercase font-bold text-xl">
+      <div class="cursor-pointer">Quà tặng gợi ý</div>
+      <div class="cursor-pointer">Quà tặng cho nam</div>
+      <div class="cursor-pointer">Quà tặng cho nữ</div>
+      <div class="cursor-pointer">Các dịp lễ</div>
+      <div class="cursor-pointer">Ưu đãi</div>
+    </div>
   </div>
 </template>
 
@@ -66,6 +82,7 @@ export default {
   computed: {
     ...mapState({
       auth: (state) => state.auth?.data,
+      wishlist: (state) => state.wishlist.data,
     }),
   },
 }

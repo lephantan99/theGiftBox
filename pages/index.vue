@@ -1,12 +1,6 @@
 <template>
   <el-main>
     <!-- carousel -->
-    <div class="mt-12 flex justify-between uppercase font-bold text-xl">
-      <div class="cursor-pointer">Quà tặng cho nam</div>
-      <div class="cursor-pointer">Quà tặng cho nữ</div>
-      <div class="cursor-pointer">Các dịp lễ</div>
-      <div class="cursor-pointer">Ưu đãi</div>
-    </div>
     <el-carousel :interval="4000" type="card" height="400px">
       <el-carousel-item v-for="item in carouselData" :key="item.id">
         <el-image :src="item.image" fit="contain"> </el-image>
@@ -18,27 +12,36 @@
         v-for="(item, index) in products"
         :key="index"
         :span="8"
-        class="mt-5"
+        class="mt-5 cursor-pointer"
+        @click.native="gotoDetailProduct(item, index)"
       >
         <el-card>
-          <el-image :src="item.mainImage" :fit="contain"> </el-image>
+          <el-image :src="item.mainImage" fit="contain"> </el-image>
+          <el-tag type="warning">Category</el-tag>
+          <br />
           {{ item.name }}
           <br />
-          Price: {{ item.cost }} VND
+          <p class="line-through">{{ (item.cost * 1.2) | formatVnd }}</p>
+          {{ item.cost | formatVnd }} <el-tag type="info">-16%</el-tag>
         </el-card>
       </el-col>
     </el-row>
     <div class="my-10">
-      <el-pagination layout="prev, pager, next" :total="25"> </el-pagination>
+      <el-pagination
+        layout="prev, pager, next"
+        :total="total"
+        @current-change="handleCurrentChange"
+      >
+      </el-pagination>
     </div>
   </el-main>
 </template>
 <script>
-import { mapState, mapActions } from 'vuex'
+import { mapState, mapActions, mapMutations } from 'vuex'
 import { config } from './config'
 import { authActions } from '~/store/auth/actions'
 import { productActions } from '~/store/product/actions'
-import { ExampleComponent } from '~/components/uncommon/Home'
+import { productMutations } from '~/store/product/mutations'
 export default {
   layout: 'clientDefault',
   name: 'Home',
@@ -50,7 +53,6 @@ export default {
   async fetch() {
     try {
       this.$loading()
-      console.log('hereee')
       await this.fetchProducts()
       this.$loading().close()
     } catch (error) {
@@ -93,14 +95,31 @@ export default {
   computed: mapState({
     locale: (state) => state.locale,
     products: (state) => state.product.data,
+    total: (state) => state.product.total,
   }),
   methods: {
     ...mapActions({
       fetchProducts: productActions.FETCH.DATA,
     }),
+    ...mapMutations({
+      setViewingProduct: productMutations.SET.VIEWING,
+    }),
     async logout() {
       await this.$store.dispatch(authActions.LOGOUT)
       this.$router.push('/')
+    },
+    gotoDetailProduct(item, index) {
+      this.setViewingProduct(item)
+      this.$router.push(`/${item.id}`)
+    },
+    async handleCurrentChange(val) {
+      this.$loading()
+      this.$store.commit(productMutations.SET.QUERY, {
+        count: 10,
+        page: val,
+      })
+      await this.$store.dispatch(productActions.FETCH.DATA)
+      this.$loading().close()
     },
   },
   head() {

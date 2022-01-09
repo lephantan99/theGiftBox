@@ -6,25 +6,25 @@ export const categoryActions = {
     /**
      * Used to fetch categories with this module's query state
      */
-    DATA: 'drink/category/fetchData',
+    DATA: 'product/category/fetchData',
     /**
      * Used to fetch more categories with current query state into this module's data
      */
-    MORE: 'drink/category/fetchMoreData',
+    MORE: 'product/category/fetchMoreData',
     /**
      * Used to fetch one category
      */
-    SINGLE: 'drink/category/fetchSingle',
+    SINGLE: 'product/category/fetchSingle',
   },
   SUBMIT: {
     /**
      * Used to create multiple categories
      */
-    // MULTIPLE: 'drink/submitMultiple',
+    // MULTIPLE: 'product/submitMultiple',
     /**
      * Used to create a new category
      */
-    SINGLE: 'drink/category/submitSingle',
+    SINGLE: 'product/category/submitSingle',
   },
   UPDATE: {
     /**
@@ -34,7 +34,7 @@ export const categoryActions = {
     /**
      * Used to update one category's information
      */
-    SINGLE: 'drink/category/updateSingle',
+    SINGLE: 'product/category/updateSingle',
   },
   TOGGLE: {},
   ACTIVATE: {},
@@ -47,24 +47,17 @@ export const categoryActions = {
     /**
      * Used to delete one category
      */
-    SINGLE: 'drink/category/deleteSingle',
+    SINGLE: 'product/category/deleteSingle',
   },
 }
 
 export default {
   async fetchData({ state, commit }) {
-    const query = { ...state.query }
-    // If has no filter, assign an empty object to it, otherwise parse it
-    query.filter = query.filter ? JSON.parse(JSON.stringify(query.filter)) : {}
-    // Add default filter "DRINK"
-    query.filter.type = { $equals: 'DRINK' }
-    // Change it back to string
-    query.filter = JSON.stringify(query.filter)
-
-    const response = await this.$authApi.get(
-      'categories?' + qs.stringify(query, { arrayFormat: 'repeat' })
+    const response = await this.$clientApi.get(
+      '/product_categories?' +
+        qs.stringify(state.query, { arrayFormat: 'repeat' })
     )
-    commit(categoryMutations.SET.DATA, response.data.results, { root: true })
+    commit(categoryMutations.SET.DATA, response.data.data, { root: true })
     // Fix total later
     commit(categoryMutations.SET.TOTAL, response.data.total, { root: true })
     return response.data

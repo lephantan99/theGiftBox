@@ -1,46 +1,46 @@
 import Vue from 'vue'
 
-export const categoryMutations = {
+export const wishlistMutations = {
   SET: {
     /**
      * Used to set the data array state of this module
      */
-    DATA: 'product/category/SET_DATA',
+    DATA: 'wishlist/SET_DATA',
     /**
      * Used to set the total state of this module
      */
-    TOTAL: 'product/category/SET_TOTAL',
+    TOTAL: 'wishlist/SET_TOTAL',
     /**
      * Used to set the query state of this module
      */
-    QUERY: 'product/category/SET_QUERY',
+    QUERY: 'wishlist/SET_QUERY',
     /**
      * Used to set the current being viewed user
      */
-    VIEWING: 'product/category/SET_VIEWING',
+    VIEWING: 'wishlist/SET_VIEWING',
   },
   CLEAR: {
     /**
      * Used to clear the query state of this module to default
      */
-    QUERY: 'product/category/CLEAR_QUERY',
+    QUERY: 'wishlist/CLEAR_QUERY',
   },
   TOGGLE: {},
   ADD: {
-    DATA: 'product/category/ADD_DATA',
+    DATA: 'wishlist/ADD_DATA',
   },
   REMOVE: {},
   INC: {
     /**
      * Use to increase the offset state of this module in query by 1
      */
-    QUERY_PAGE: 'product/category/INC_QUERY_PAGE',
+    QUERY_PAGE: 'wishlist/INC_QUERY_OFFSET',
   },
   SUB: {
     /**
      * Use to decrease the offset state of this module in query by 1
      */
-    QUERY_PAGE: 'product/category/SUB_QUERY_PAGE',
+    QUERY_PAGE: 'wishlist/SUB_QUERY_OFFSET',
   },
 }
 
@@ -58,7 +58,9 @@ export default {
     Vue.set(state, 'viewing', viewing)
   },
   ADD_DATA(state, data) {
-    Vue.set(state, 'data', [...state.data, ...data])
+    console.log('123123', state)
+    console.log('123123', data)
+    Vue.set(state, 'data', [...state.data, ...[data]])
   },
   CLEAR_QUERY(state) {
     Vue.set(state, 'query', {
@@ -66,10 +68,10 @@ export default {
       limit: 10,
     })
   },
-  INC_QUERY_PAGE(state) {
+  INC_QUERY_OFFSET(state) {
     Vue.set(state.query, 'offset', state.query.offset + state.query.limit)
   },
-  SUB_QUERY_PAGE(state) {
+  SUB_QUERY_OFFSET(state) {
     Vue.set(state.query, 'offset', state.query.offset - state.query.limit)
   },
 }

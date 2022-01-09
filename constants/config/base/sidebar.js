@@ -48,14 +48,14 @@ export const sidebar = {
           module: 'product', // Module name for localization
           icon: ['fas', 'newspaper'], // Fontawesome or Element UI icon
           color: 'var(--color-yellow)', // Must be CSS variables
-          route: { name: 'product' }, // path or route object ({ name: 'route-name',... })
+          route: { name: 'products' }, // path or route object ({ name: 'route-name',... })
           permission: ALL, // ALL or match ./auth.js
         },
         {
           module: 'category', // Module name for localization
           icon: ['fas', 'layer-group'], // Fontawesome or Element UI icon
           color: 'var(--color-yellow)', // Must be CSS variables
-          route: { name: 'categories' }, // path or route object ({ name: 'route-name',... })
+          route: { name: 'productCategories' }, // path or route object ({ name: 'route-name',... })
           permission: ALL, // ALL or match ./auth.js
         },
         // {

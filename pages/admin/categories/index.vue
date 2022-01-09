@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Breadcrumb :title="$t('category.title')" />
+    <Breadcrumb :title="$t('post.category.title')" />
     <!-- <CategoryFilterBar
       @my-category-filter="onFilter"
       @my-category-filter-refresh="onRefreshFilter"
@@ -22,9 +22,13 @@
       <!-- eslint-disable prettier/prettier -->
       <!-- Just disable prettier/prettier here for shorter code -->
       <!-- <el-table-column :label="$t('drinks.index.code')" prop="id" /> -->
-      <el-table-column :label="$t('category.index.name')" prop="name" />
-      <el-table-column :label="$t('category.index.description')" prop="description" />
-      <el-table-column :label="$t('category.index.cost')" prop="cost" />
+      <el-table-column :label="$t('post.category.name')" prop="enName" />
+      <el-table-column :label="$t('post.category.description')" prop="enDescription" >
+        <template slot-scope="scope">
+          <div class="truncate" >{{ scope.row.enDescription}}</div>
+        </template>
+      </el-table-column>
+      <el-table-column :label="$t('post.category.createdBy')" prop="user.firstName" />
       <!-- <el-table-column :label="$t('drinks.index.types')" prop="category.name" /> -->
       <!-- eslint-enable prettier/prettier -->
     </DataTable>

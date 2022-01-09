@@ -6,5 +6,4 @@ export default () => ({
     count: 10,
     pageCount: 2,
   },
-  viewing: null,
 })
