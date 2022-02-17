@@ -93,6 +93,8 @@ export default {
     '~/plugins/dev.js',
     // Utilities
     '~/utils/index.js',
+    // Mixins
+    '~/mixins/global.js',
   ],
   /*
    ** Auto import components

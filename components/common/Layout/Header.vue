@@ -19,13 +19,21 @@
           :icon="['far', 'heart']"
           class="w-8 h-8 mr-5 text-xl cursor-pointer mb-3"
         /> -->
-        <el-badge :value="wishlist.length" class="item w-[32px] mr-5">
+        <el-badge
+          :value="wishlist.length"
+          class="item w-[32px] mr-5"
+          @click.native="onShowWishList"
+        >
           <fa
             :icon="['far', 'heart']"
             class="w-8 h-8 mr-5 text-xl cursor-pointer mb-3"
           />
         </el-badge>
-        <el-badge :value="0" class="item w-[32px] mr-5">
+        <el-badge
+          :value="cart.length"
+          class="item w-[32px] mr-5"
+          @click.native="onShowCart"
+        >
           <i
             class="w-12 h-12 text-4xl el-icon-shopping-cart-full cursor-pointer"
           ></i>
@@ -55,6 +63,12 @@
               >
                 {{ $t('navbar.logout') }}
               </el-dropdown-item>
+              <el-dropdown-item
+                command="showInfo"
+                class="font-bold text-theme-1 hover:bg-theme-1-200"
+              >
+                {{ $t('navbar.info') }}
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </p>
@@ -83,7 +97,16 @@ export default {
     ...mapState({
       auth: (state) => state.auth?.data,
       wishlist: (state) => state.wishlist.data,
+      cart: (state) => state.cart.data,
     }),
+  },
+  methods: {
+    onShowWishList() {
+      this.$router.push('/client/wishlist')
+    },
+    onShowCart() {
+      this.$router.push('/client/cart')
+    },
   },
 }
 </script>

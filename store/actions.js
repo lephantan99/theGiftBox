@@ -1,5 +1,7 @@
 import { authMutations } from './auth/mutations'
 import { rootMutations } from './mutations'
+import { wishlistMutations } from '~/store/wishlist/mutations'
+import { cartMutations } from '~/store/cart/mutations'
 
 const cookieparser = process.server ? require('cookieparser') : undefined
 export const rootActions = {
@@ -33,11 +35,31 @@ export default {
   nuxtServerInit({ commit, state }) {
     let auth = null
     commit(rootMutations.SET.INITIAL_STATE, JSON.parse(JSON.stringify(state)))
+    // localStorage.setItem('wishList', JSON.stringify(currentWishList))
     const authString = localStorage.getItem('auth')
     if (authString) {
       auth = JSON.parse(authString)
       commit(authMutations.SET.AUTH, auth)
     }
     commit(rootMutations.SET.SERVER_STATE, true) // Server is ready
+    // Set wishlist and cart from LS
+    let currentWishList =
+      JSON.parse(localStorage.getItem('wishList')) !== null
+        ? JSON.parse(localStorage.getItem('wishList'))
+        : []
+    if (currentWishList.length > 0) {
+      commit(wishlistMutations.SET.DATA, currentWishList, {
+        root: true,
+      })
+    }
+    let currentCart =
+      JSON.parse(localStorage.getItem('cart')) !== null
+        ? JSON.parse(localStorage.getItem('cart'))
+        : []
+    if (currentCart.length > 0) {
+      commit(cartMutations.SET.DATA, currentCart, {
+        root: true,
+      })
+    }
   },
 }

@@ -1,8 +1,8 @@
-export const tagGetters = {
+export const cartGetters = {
   /**
-   * Used to get tag's query state
+   * Used to get cart's query state
    */
-  QUERY: 'tag/query',
+  QUERY: 'cart/query',
 }
 
 export default {

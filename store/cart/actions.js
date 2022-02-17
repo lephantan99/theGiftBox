@@ -1,94 +1,94 @@
 import qs from 'qs'
-import { tagMutations } from './mutations'
+import { cartMutations } from './mutations'
 
-export const tagActions = {
+export const cartActions = {
   FETCH: {
     /**
-     * Used to fetch tags with this module's query state
+     * Used to fetch carts with this module's query state
      */
-    DATA: 'tag/fetchData',
+    DATA: 'cart/fetchData',
     /**
-     * Used to fetch more tags with current query state into this module's data
+     * Used to fetch more carts with current query state into this module's data
      */
-    MORE: 'tag/fetchMoreData',
+    MORE: 'cart/fetchMoreData',
     /**
-     * Used to fetch one tag
+     * Used to fetch one cart
      */
-    SINGLE: 'tag/fetchSingle',
+    SINGLE: 'cart/fetchSingle',
   },
   SUBMIT: {
     /**
-     * Used to create multiple tags
+     * Used to create multiple carts
      */
-    // MULTIPLE: 'tag/submitMultiple',
+    // MULTIPLE: 'cart/submitMultiple',
     /**
-     * Used to create a new tag
+     * Used to create a new cart
      */
-    SINGLE: 'tag/submitSingle',
+    SINGLE: 'cart/submitSingle',
   },
   UPDATE: {
     /**
-     * Used to update multiple tags' information
+     * Used to update multiple carts' information
      */
-    // MULTIPLE: 'tag/updateMultiple',
+    // MULTIPLE: 'cart/updateMultiple',
     /**
-     * Used to update one tag's information
+     * Used to update one cart's information
      */
-    SINGLE: 'tag/updateSingle',
+    SINGLE: 'cart/updateSingle',
   },
   TOGGLE: {},
   ACTIVATE: {},
   DEACTIVATE: {},
   DELETE: {
     /**
-     * Used to delete multiple tags
+     * Used to delete multiple carts
      */
-    // MULTIPLE: 'tag/deleteMultiple',
+    // MULTIPLE: 'cart/deleteMultiple',
     /**
-     * Used to delete one tag
+     * Used to delete one cart
      */
-    SINGLE: 'tag/deleteSingle',
+    SINGLE: 'cart/deleteSingle',
   },
 }
 
 export default {
   async fetchData({ state, commit }) {
     const response = await this.$authApi.get(
-      '/tags?' + qs.stringify(state.query, { arrayFormat: 'repeat' })
+      '/carts?' + qs.stringify(state.query, { arrayFormat: 'repeat' })
     )
-    commit(tagMutations.SET.DATA, response.data.data, { root: true })
+    commit(cartMutations.SET.DATA, response.data.data, { root: true })
     // Fix total later
-    commit(tagMutations.SET.TOTAL, response.data.total, { root: true })
+    commit(cartMutations.SET.TOTAL, response.data.total, { root: true })
     return response.data
   },
   async fetchMoreData({ state, commit }) {
-    commit(tagMutations.INC.QUERY_PAGE, {}, { root: true })
+    commit(cartMutations.INC.QUERY_PAGE, {}, { root: true })
 
     const response = await this.$authApi.get(
-      '/tags?' + qs.stringify(state.query, { arrayFormat: 'repeat' })
+      '/carts?' + qs.stringify(state.query, { arrayFormat: 'repeat' })
     )
-    commit(tagMutations.ADD.DATA, response.data.results, { root: true })
+    commit(cartMutations.ADD.DATA, response.data.results, { root: true })
     if (response.data.results.length < 1) {
       // If has no data, substract the query offset by limit, so it doesn't add offset forever with no data
-      commit(tagMutations.SUB.QUERY_PAGE, {}, { root: true })
+      commit(cartMutations.SUB.QUERY_PAGE, {}, { root: true })
     }
     return response.data.results
   },
   async fetchSingle({ commit }, id) {
-    const response = await this.$authApi.get('/tags/' + id)
-    commit(tagMutations.SET.VIEWING, response.data, { root: true })
+    const response = await this.$authApi.get('/carts/' + id)
+    commit(cartMutations.SET.VIEWING, response.data, { root: true })
     return response
   },
   async submitSingle({ rootState }, form) {
-    const response = await this.$authApi.tag('/tags', form)
+    const response = await this.$authApi.cart('/carts', form)
     return response
   },
   async updateSingle({ rootState }, { id, form }) {
-    const response = await this.$authApi.put('/tags/' + id, form)
+    const response = await this.$authApi.put('/carts/' + id, form)
     return response
   },
   async deleteSingle({ rootState }, id) {
-    const response = await this.$authApi.delete('/tags/' + id)
+    const response = await this.$authApi.delete('/carts/' + id)
     return response
   },
 }

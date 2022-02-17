@@ -17,7 +17,7 @@
       >
         <el-card>
           <el-image :src="item.mainImage" fit="contain"> </el-image>
-          <el-tag type="warning">Category</el-tag>
+          <el-tag type="warning">{{ item.product_categories[0].name }}</el-tag>
           <br />
           {{ item.name }}
           <br />

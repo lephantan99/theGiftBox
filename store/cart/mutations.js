@@ -1,46 +1,48 @@
 import Vue from 'vue'
 
-export const tagMutations = {
+export const cartMutations = {
   SET: {
     /**
      * Used to set the data array state of this module
      */
-    DATA: 'tag/SET_DATA',
+    DATA: 'cart/SET_DATA',
     /**
      * Used to set the total state of this module
      */
-    TOTAL: 'tag/SET_TOTAL',
+    TOTAL: 'cart/SET_TOTAL',
     /**
      * Used to set the query state of this module
      */
-    QUERY: 'tag/SET_QUERY',
+    QUERY: 'cart/SET_QUERY',
     /**
      * Used to set the current being viewed user
      */
-    VIEWING: 'tag/SET_VIEWING',
+    VIEWING: 'cart/SET_VIEWING',
   },
   CLEAR: {
     /**
      * Used to clear the query state of this module to default
      */
-    QUERY: 'tag/CLEAR_QUERY',
+    QUERY: 'cart/CLEAR_QUERY',
   },
   TOGGLE: {},
   ADD: {
-    DATA: 'tag/ADD_DATA',
+    DATA: 'cart/ADD_DATA',
   },
-  REMOVE: {},
+  REMOVE: {
+    DATA: 'cart/REMOVE_DATA',
+  },
   INC: {
     /**
      * Use to increase the offset state of this module in query by 1
      */
-    QUERY_PAGE: 'tag/INC_QUERY_OFFSET',
+    QUERY_PAGE: 'cart/INC_QUERY_OFFSET',
   },
   SUB: {
     /**
      * Use to decrease the offset state of this module in query by 1
      */
-    QUERY_PAGE: 'tag/SUB_QUERY_OFFSET',
+    QUERY_PAGE: 'cart/SUB_QUERY_OFFSET',
   },
 }
 
@@ -58,7 +60,11 @@ export default {
     Vue.set(state, 'viewing', viewing)
   },
   ADD_DATA(state, data) {
-    Vue.set(state, 'data', [...state.data, ...data])
+    Vue.set(state, 'data', [...state.data, ...[data]])
+  },
+  REMOVE_DATA(state, id) {
+    state.data = state.data.filter((e) => e.id !== id)
+    Vue.set(state, 'data', [...state.data])
   },
   CLEAR_QUERY(state) {
     Vue.set(state, 'query', {

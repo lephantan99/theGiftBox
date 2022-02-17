@@ -1,15 +1,20 @@
 import Vue from 'vue'
-export default Vue.mixin({
-  data() {
-    return {
-      mixinMessage: 'Hello from mixin',
-    }
-  },
+Vue.mixin({
   methods: {
-    sayHello(name) {
-      // eslint-disable-next-line
-      console.log(`Hello ${name}, I'm printed from Vue-Mixin`)
+    /**
+     * To evaluate a parameter in <template>
+     * @param {any} param
+     * @param {string} evalString Example: something?.somethingElse
+     * @returns {any} Return evaluated param?.something?.somethingElse
+     */
+    $e(param, evalString) {
+      // eslint-disable-next-line no-useless-escape
+      if (/^([a-zA-Z0-9\[\].?])*$/g.test(evalString)) {
+        // eslint-disable-next-line no-eval
+        return eval('param?.' + evalString)
+      } else {
+        return null
+      }
     },
-    // Add more global helpers here
   },
 })

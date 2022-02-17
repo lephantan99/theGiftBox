@@ -29,7 +29,9 @@ export const wishlistMutations = {
   ADD: {
     DATA: 'wishlist/ADD_DATA',
   },
-  REMOVE: {},
+  REMOVE: {
+    DATA: 'wishlist/REMOVE_DATA',
+  },
   INC: {
     /**
      * Use to increase the offset state of this module in query by 1
@@ -58,9 +60,12 @@ export default {
     Vue.set(state, 'viewing', viewing)
   },
   ADD_DATA(state, data) {
-    console.log('123123', state)
-    console.log('123123', data)
     Vue.set(state, 'data', [...state.data, ...[data]])
+  },
+  REMOVE_DATA(state, id) {
+    console.log(state.data)
+    state.data = state.data.filter((e) => e.id !== id)
+    Vue.set(state, 'data', [...state.data])
   },
   CLEAR_QUERY(state) {
     Vue.set(state, 'query', {
