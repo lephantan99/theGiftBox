@@ -1,5 +1,6 @@
 // Read pages configuration
 // You can pass variables to middleware through meta
+import { Message } from 'element-ui'
 import { roles } from '~/constants/config/base/auth'
 /**
  * Authentication and authorization middleware
@@ -42,8 +43,9 @@ export default function ({ route, store, redirect }) {
     }
     // Proceed checking
     if (!config?.permission?.includes('ALL')) {
-      if (!config?.permission?.includes(auth.role)) {
+      if (!config?.permission?.includes(auth.role.name)) {
         // Back to home
+        Message.error('Bạn không có quyền truy cập vào trang này')
         redirect('/')
       }
     }

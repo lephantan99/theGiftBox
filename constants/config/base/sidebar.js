@@ -16,6 +16,18 @@ export const sidebar = {
       ],
     },
     {
+      name: 'orders-management',
+      components: [
+        {
+          module: 'order', // Module name for localization
+          icon: ['fas', 'newspaper'], // Fontawesome or Element UI icon
+          color: 'var(--color-yellow)', // Must be CSS variables
+          route: { name: 'orders' }, // path or route object ({ name: 'route-name',... })
+          permission: ALL, // ALL or match ./auth.js
+        },
+      ],
+    },
+    {
       name: 'posts-management',
       components: [
         {
