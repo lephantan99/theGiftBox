@@ -37,7 +37,7 @@
         "
       >
       </el-button>
-      <slot name="button">
+      <slot v-if="isAdd" name="button">
         <el-button
           class="float-right border-0 bg-theme-1 hover:bg-theme-1-600 text-light select-none rounded-lg"
           size="small"
@@ -192,6 +192,10 @@ export default {
     data: {
       type: Array,
       required: true,
+    },
+    isAdd: {
+      type: Boolean,
+      default: true,
     },
     currentPage: {
       type: Number,

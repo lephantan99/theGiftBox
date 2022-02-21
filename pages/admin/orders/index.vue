@@ -16,6 +16,7 @@
       v-loading="$fetchState.pending"
       :data="tableData"
       :total="dataTotal"
+      :is-add="false"
       :limit="limit"
       :current-page="currentPage"
       :multiple-choice="false"
@@ -135,6 +136,9 @@ export default {
     ...mapActions({
       fetchOrder: moduleActions.FETCH.DATA,
     }),
+    ...mapMutations({
+      setViewing: moduleMutations.SET.VIEWING,
+    }),
     onClick() {
       console.log('onclick')
       this.$router.push('/123123')
@@ -163,7 +167,10 @@ export default {
         )
       }
     },
-    onEdit() {},
+    onEdit(payload) {
+      this.setViewing(payload.rowData)
+      this.$router.push(`/admin/orders/edit/${payload.rowData.id}`)
+    },
   },
 }
 </script>
