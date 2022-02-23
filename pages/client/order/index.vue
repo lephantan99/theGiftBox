@@ -180,16 +180,16 @@ export default {
       } else if (this.cart.length === 0) {
         this.$message.warning(this.$t('Không có sản phẩm nào trong đơn hàng!'))
       } else {
-        // const payload = {
-        //   note: this.form.note,
-        //   addressReceiver: this.form.addressReceiver,
-        //   phoneNumberReceiver: this.form.phoneNumberReceiver,
-        //   dateReceiver: this.form.dateReceiver,
-        //   orderProducts: this.cart,
-        //   total: this.total.toString(),
-        //   status: 'PENDING',
-        // }
-        // this.submitOrder(payload)
+        const payload = {
+          note: this.form.note,
+          addressReceiver: this.form.addressReceiver,
+          phoneNumberReceiver: this.form.phoneNumberReceiver,
+          dateReceiver: this.form.dateReceiver,
+          orderProducts: this.cart,
+          total: this.total.toString(),
+          status: 'PENDING',
+        }
+        this.submitOrder(payload)
         //https://developers.momo.vn/#/docs/en/aiov2/?id=payment-method
         //parameters
         var partnerCode = 'MOMOYBMG20220214'

@@ -44,7 +44,7 @@
         </p>
 
         <p v-else>
-          <el-dropdown class="flex">
+          <el-dropdown class="flex" @command="handleCommand">
             <div class="h-full flex items-center mr-5">
               <el-avatar
                 size="medium"
@@ -69,6 +69,12 @@
               >
                 {{ $t('navbar.info') }}
               </el-dropdown-item>
+              <el-dropdown-item
+                command="goToAdmin"
+                class="font-bold text-theme-1 hover:bg-theme-1-200"
+              >
+                {{ $t('navbar.goToAdmin') }}
+              </el-dropdown-item>
             </el-dropdown-menu>
           </el-dropdown>
         </p>
@@ -86,8 +92,12 @@
 
 <script>
 import { mapState } from 'vuex'
+import confirmAction from '~/mixins/confirmActions'
+import { authActions } from '~/store/auth/actions'
+
 export default {
   name: 'Header',
+  mixins: [confirmAction],
   data() {
     return {
       input: '',
@@ -106,6 +116,23 @@ export default {
     },
     onShowCart() {
       this.$router.push('/client/cart')
+    },
+    handleCommand(command) {
+      if (command === 'goToAdmin') {
+        this.$router.push('/admin')
+      } else if (command === 'logout') {
+        this.confirmAction(
+          async () => {
+            this.$root.$emit('force-allow-to-leave')
+            await this.$store.dispatch(authActions.LOGOUT)
+            this.$message.success(this.$t('success.logout'))
+            this.$router.push(`/login`)
+          },
+          () => {},
+          'Bạn có chắc chắn muốn đăng xuất không?',
+          'Xác nhận đăng xuất khỏi hệ thống'
+        )
+      }
     },
   },
 }

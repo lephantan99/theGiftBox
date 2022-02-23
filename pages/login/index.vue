@@ -19,52 +19,6 @@
         <p class="italic text-gray-400">
           Hãy đăng nhập để tiếp tục trải nghiệm The Gift Box
         </p>
-        <!-- <form class="mt-6" action="#" method="POST">
-          <div>
-            <label
-              class="block text-sm font-medium leading-relaxed tracking-tighter text-gray-700"
-              >Email
-            </label>
-            <input
-              id=""
-              type="email"
-              name=""
-              placeholder="Your Email "
-              class="w-full px-4 py-2 mt-2 text-base text-black transition duration-500 ease-in-out transform bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
-              autofocus
-              autocomplete
-              required
-            />
-          </div>
-          <div class="mt-4">
-            <label
-              class="block text-sm font-medium leading-relaxed tracking-tighter text-gray-700"
-              >Password</label
-            >
-            <input
-              id=""
-              type="password"
-              name=""
-              placeholder="Your Password"
-              minlength="6"
-              class="w-full px-4 py-2 text-base text-black transition duration-500 ease-in-out transform bg-gray-100 border-transparent rounded-lg focus:border-gray-500 focus:bg-white focus:outline-none focus:shadow-outline focus:ring-2 ring-offset-current ring-offset-2"
-              required
-            />
-          </div>
-          <div class="mt-2 text-right">
-            <a
-              href="#"
-              class="text-sm font-semibold leading-relaxed text-gray-700 hover:text-black focus:text-blue-700"
-              >Forgot Password?</a
-            >
-          </div>
-          <button
-            type="submit"
-            class="block w-full px-4 py-3 mt-6 font-semibold text-white transition duration-500 ease-in-out transform bg-black rounded-lg hover:bg-gray-800 hover:to-black focus:shadow-outline focus:outline-none focus:ring-2 ring-offset-current ring-offset-2"
-          >
-            Log In
-          </button>
-        </form> -->
         <FormWrapper :model="form" class="mt-6" @onSubmit="postLogin">
           <InputWrapper prop="email" rules="required|email" label="Email">
             <el-input v-model="form.email" placeholder="mail_cua_ban@gmail.com">
@@ -84,6 +38,14 @@
             native-type="submit"
             class="w-full font-bold text-white"
             >Đăng Nhập</el-button
+          >
+          <el-row class="mt-5"
+            >Bạn chưa có tài khoản?
+            <a
+              class="cursor-pointer underline underline-offset-8"
+              @click="$router.push('/register')"
+              >Đăng ký</a
+            ></el-row
           >
         </FormWrapper>
       </div>
