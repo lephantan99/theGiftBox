@@ -4,6 +4,8 @@ export default function ({ $axios, app, store }, inject) {
   // This was made for Amazon S3 file uploading with pre-signed url
   const fileApi = {
     put: (signedRequest, file) => {
+      console.log('3')
+
       try {
         if (process.env.NODE_ENV === 'development') {
           Message('DevOnly | File uploading API executed')

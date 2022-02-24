@@ -16,7 +16,7 @@
       @my-table-on-action="handleTableEvents"
       @my-table-edit="onEdit"
       @my-table-delete="onDelete"
-      @my-table-add-new="$router.push(`/${roleGroup}/products/create`)"
+      @my-table-add-new="$router.push(`/admin/products/create`)"
     >
       <el-table-column type="index" width="50" label="STT" />
       <!-- eslint-disable prettier/prettier -->
@@ -36,7 +36,10 @@ import { DataTable } from '~templates/Table'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import { ProductFilterBar } from '~/components/uncommon/Product'
 import { productMutations as moduleMutations } from '~/store/product/mutations'
-import { productActions as moduleActions } from '~/store/product/actions'
+import {
+  productActions as moduleActions,
+  productActions,
+} from '~/store/product/actions'
 import { productGetters as moduleGetters } from '~/store/product/getters'
 import dataTableMixin from '~/mixins/components/table'
 
@@ -47,6 +50,11 @@ export default {
     ProductFilterBar,
   },
   mixins: [dataTableMixin],
+  // async fetch() {
+  //   console.log('123123')
+  //   const { data } = await this.fetchSingleProduct(this.$route.params.id)
+  //   console.log('123123')
+  // },
   data() {
     return {
       moduleMutations,
@@ -72,6 +80,7 @@ export default {
       limit: (state) => state.product.query.count,
       currentPage: (state) => state.product.query.page,
       dataTotal: (state) => state.product.total,
+      viewing: (state) => state.product.viewing,
     }),
   },
   meta: {
@@ -81,9 +90,20 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      fetchSingleProduct: productActions.FETCH.SINGLE,
+    }),
+    fillForm() {
+      Object.keys(this.form).forEach((key) => {
+        this.form[key] = this.viewingDrink[key]
+      })
+    },
     onClick() {
       console.log('onclick')
       this.$router.push('/123123')
+    },
+    onEdit(payload) {
+      this.$router.push(`/admin/products/edit/${payload.rowData.id}`)
     },
   },
 }

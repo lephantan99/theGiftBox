@@ -76,6 +76,7 @@ export default {
   },
   async fetchSingle({ commit }, id) {
     const response = await this.$authApi.get('/products/' + id)
+    console.log('123', response)
     commit(productMutations.SET.VIEWING, response.data, { root: true })
     return response
   },

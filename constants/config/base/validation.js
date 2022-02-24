@@ -12,7 +12,7 @@ export const availableRules = {
    * Type validate
    */
   string: { type: 'string', message: 'validate.string' },
-  number: { type: 'number', message: 'validate.number' },
+  // number: { type: 'number', message: 'validate.number' },
   array: { type: 'array', message: 'validate.array' },
   boolean: { type: 'boolean', message: 'validate.boolean' },
   integer: { type: 'integer', message: 'validate.integer' },
@@ -66,6 +66,36 @@ export const availableRules = {
       }
     },
   }),
+  min_length: (val) => {
+    return {
+      min: +val,
+      message: 'validate.min_length: ' + val,
+    }
+  },
+  max_length: (val) => {
+    return {
+      max: +val,
+      message: 'validate.max_length: ' + val,
+    }
+  },
+  min_words: (val) => {
+    return {
+      pattern: new RegExp(`^(?:(?:^| )\\S+ *){${val},}$`, 'g'),
+      message: 'validate.min_words: ' + val,
+    }
+  },
+  tel: {
+    pattern: /((09|03|07|08|05|02)+([0-9]{8,9})\b)/g,
+    message: 'validate.tel',
+    transform(value) {
+      // value = value.replace(/\s/g, '')
+      return value.replace(/\s/g, '')
+    },
+  },
+  number: {
+    pattern: /^([0-9]+)*$/g,
+    message: 'validate.number',
+  },
   alpha: {
     validator: (rule, value, callback) => {
       if (!/[a-zA-Z]+/.test(value)) {

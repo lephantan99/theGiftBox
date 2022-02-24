@@ -3,7 +3,9 @@ export default {
   index: {
     name: 'Name',
     description: 'Description',
-    cost: 'Cost',
+    cost: 'Cost (Step 10000)',
+    mainImage: 'Main Image Product',
+    preparationTime: 'Preparation Time',
   },
   category: {
     title: 'Product Category Management',

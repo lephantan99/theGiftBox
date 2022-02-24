@@ -30,35 +30,26 @@ export default {
     // we can get multiple urls
     // but can only upload 1 file at a time (pre-signed url limitation)
     async getSignedUrlS3(files, folderPrefix = 'UNCATEGORIZED_FILES') {
-      files = await files.map((file) => {
-        // const fileName = this.getUniqueFileName(file)
-        return {
-          // Get the file's extension
-          type: file.type,
-          fileName: file.name,
-          folderPrefix,
-        }
+      const response = await this.$authApi.post('/medias/presigned-url', {
+        name: files.fileName,
+        type: files.mimeType,
       })
-      const response = await this.$baseApi.post('/medias/url-storage', {
-        data: files,
-      })
-      return response.data
+      return response.data.data
     },
     // Has to have .raw (Element UI uploader's format)
     async uploadFilesToS3(files, folderPrefix) {
       const urls = await this.getSignedUrlS3(files, folderPrefix)
-      const responseUrls = await Promise.all(
-        urls.map(async (url, index) => {
-          const response = await this.$fileApi.put(url, files[index])
-          if (response.status === 200) {
-            const questionIndex = response.config.url.indexOf('?')
-            const responseUrl = response.config.url.substring(0, questionIndex)
-            return responseUrl
-          }
-          Message.error('Failed to upload image')
-        })
-      )
-      return responseUrls
+      console.log('urls', urls)
+      const response = await this.$fileApi.put(urls, files.raw)
+      if (response.status === 200) {
+        const questionIndex = response.config.url.indexOf('?')
+        const responseUrl = response.config.url.substring(0, questionIndex)
+        return responseUrl
+      }
+      console.log('response', response)
+
+      Message.error('Failed to upload image')
+      return response
     },
     /**
      *

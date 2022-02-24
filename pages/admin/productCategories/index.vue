@@ -16,7 +16,7 @@
       @my-table-on-action="handleTableEvents"
       @my-table-edit="onEdit"
       @my-table-delete="onDelete"
-      @my-table-add-new="$router.push(`/${roleGroup}/categories/create`)"
+      @my-table-add-new="$router.push(`/admin/productCategories/create`)"
     >
       <el-table-column type="index" width="50" label="STT" />
       <!-- eslint-disable prettier/prettier -->
