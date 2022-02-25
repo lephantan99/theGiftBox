@@ -6,12 +6,7 @@
       has-back-button
     />
     <el-row>
-      <FormWrapper
-        ref="orderForm"
-        class="my-5"
-        :model="form"
-        @onSubmit="onSubmitOrder"
-      >
+      <FormWrapper ref="orderForm" class="my-5" :model="form">
         <InputWrapper rules="required" prop="note">
           <label class="font-medium">{{ $t('order.note') }}</label>
           <el-input
@@ -175,16 +170,16 @@ export default {
       current: (state) => state.order?.viewing?.status,
       total: (state) => {
         let total = 0
-        const products = state.order.viewing.orderProducts
-        products.forEach((element) => {
-          total += element.product.cost
-        })
+        const products = state.order?.viewing?.orderProducts
+        if (products && products.length > 0) {
+          products.forEach((element) => {
+            total += element.product.cost
+          })
+        }
         return total
       },
       step: (state) => {
-        console.log('123', STATUS)
-        console.log('123', state.order.viewing.status)
-        console.log('123', STATUS.indexOf(state.order.viewing.status))
+        console.log('state', state.order)
         return STATUS.indexOf(state.order.viewing.status)
       },
     }),

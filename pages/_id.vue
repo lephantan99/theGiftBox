@@ -75,10 +75,34 @@
       Thông tin về quà tặng
     </h1>
     <p class="mt-5">{{ $e(product, 'content') }}</p>
+    <hr />
+    <h1 class="uppercase font-semibold text-2xl mt-10">
+      Bình luận về sản phẩm
+    </h1>
+    <template
+      v-if="$e(product, 'reviews') !== undefined && product.reviews.length > 0"
+    >
+      <el-row v-for="item in product.reviews" :key="item.id" class="mt-5">
+        <el-col :span="2">
+          <el-avatar
+            shape="square"
+            src="https://cube.elemecdn.com/3/7c/3ea6beec64369c2642b92c6726f1epng.png"
+          ></el-avatar>
+        </el-col>
+        <el-col :span="22">
+          <p>{{ item.user.firstName }} {{ item.user.lastName }}</p>
+          <p>{{ moment(item.createdAt).format('LLLL') }}</p>
+          <br />
+          <p>{{ item.title }}</p>
+          <p>{{ item.content }}</p>
+        </el-col>
+      </el-row>
+    </template>
   </el-main>
 </template>
 <script>
 import { Message } from 'element-ui'
+import moment from 'moment'
 import { mapState, mapActions, mapMutations } from 'vuex'
 import { wishlistMutations } from '~/store/wishlist/mutations'
 import { cartMutations } from '~/store/cart/mutations'
@@ -110,6 +134,8 @@ export default {
     },
   },
   methods: {
+    moment,
+
     ...mapMutations({
       addWishList: wishlistMutations.ADD.DATA,
       setViewingProduct: productMutations.SET.VIEWING,

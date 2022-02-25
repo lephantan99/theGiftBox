@@ -132,6 +132,8 @@ export default {
           'Bạn có chắc chắn muốn đăng xuất không?',
           'Xác nhận đăng xuất khỏi hệ thống'
         )
+      } else {
+        this.$router.push('/client/info')
       }
     },
   },

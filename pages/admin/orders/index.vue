@@ -92,6 +92,7 @@ export default {
   mixins: [dataTableMixin],
   middleware: ['auth'],
   async fetch() {
+    await this.clearQuery()
     await this.fetchOrder()
     this.tableData = this.$store.state.order.data.filter(
       (e) => e.status === 'PENDING'
@@ -138,6 +139,7 @@ export default {
     }),
     ...mapMutations({
       setViewing: moduleMutations.SET.VIEWING,
+      clearQuery: moduleMutations.CLEAR.QUERY,
     }),
     onClick() {
       console.log('onclick')
@@ -167,8 +169,9 @@ export default {
         )
       }
     },
-    onEdit(payload) {
-      this.setViewing(payload.rowData)
+    async onEdit(payload) {
+      console.log('payload', payload)
+      await this.setViewing(payload.rowData)
       this.$router.push(`/admin/orders/edit/${payload.rowData.id}`)
     },
   },

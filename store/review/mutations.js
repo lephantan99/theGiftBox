@@ -1,46 +1,46 @@
 import Vue from 'vue'
 
-export const orderMutations = {
+export const reviewMutations = {
   SET: {
     /**
      * Used to set the data array state of this module
      */
-    DATA: 'order/SET_DATA',
+    DATA: 'review/SET_DATA',
     /**
      * Used to set the total state of this module
      */
-    TOTAL: 'order/SET_TOTAL',
+    TOTAL: 'review/SET_TOTAL',
     /**
      * Used to set the query state of this module
      */
-    QUERY: 'order/SET_QUERY',
+    QUERY: 'review/SET_QUERY',
     /**
      * Used to set the current being viewed user
      */
-    VIEWING: 'order/SET_VIEWING',
+    VIEWING: 'review/SET_VIEWING',
   },
   CLEAR: {
     /**
      * Used to clear the query state of this module to default
      */
-    QUERY: 'order/CLEAR_QUERY',
+    QUERY: 'review/CLEAR_QUERY',
   },
   TOGGLE: {},
   ADD: {
-    DATA: 'order/ADD_DATA',
+    DATA: 'review/ADD_DATA',
   },
   REMOVE: {},
   INC: {
     /**
      * Use to increase the offset state of this module in query by 1
      */
-    QUERY_PAGE: 'order/INC_QUERY_OFFSET',
+    QUERY_PAGE: 'review/INC_QUERY_OFFSET',
   },
   SUB: {
     /**
      * Use to decrease the offset state of this module in query by 1
      */
-    QUERY_PAGE: 'order/SUB_QUERY_OFFSET',
+    QUERY_PAGE: 'review/SUB_QUERY_OFFSET',
   },
 }
 
@@ -56,16 +56,14 @@ export default {
   },
   SET_VIEWING(state, viewing) {
     Vue.set(state, 'viewing', viewing)
-    console.log('test', state.viewing)
   },
   ADD_DATA(state, data) {
     Vue.set(state, 'data', [...state.data, ...data])
   },
   CLEAR_QUERY(state) {
     Vue.set(state, 'query', {
-      page: 1,
-      count: 10,
-      pageCount: 2,
+      offset: 0,
+      limit: 10,
     })
   },
   INC_QUERY_OFFSET(state) {
