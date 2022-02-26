@@ -70,13 +70,18 @@ export const sidebar = {
           route: { name: 'productCategories' }, // path or route object ({ name: 'route-name',... })
           permission: ALL, // ALL or match ./auth.js
         },
-        // {
-        //   module: 'tag', // Module name for localization
-        //   icon: ['fas', 'tags'], // Fontawesome or Element UI icon
-        //   color: 'var(--color-yellow)', // Must be CSS variables
-        //   route: { name: 'tags' }, // path or route object ({ name: 'route-name',... })
-        //   permission: ALL, // ALL or match ./auth.js
-        // },
+      ],
+    },
+    {
+      name: 'review-management',
+      components: [
+        {
+          module: 'review', // Module name for localization
+          icon: ['fas', 'layer-group'], // Fontawesome or Element UI icon
+          color: 'var(--color-yellow)', // Must be CSS variables
+          route: { name: 'reviews' }, // path or route object ({ name: 'route-name',... })
+          permission: ALL, // ALL or match ./auth.js
+        },
       ],
     },
   ],

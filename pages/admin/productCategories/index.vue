@@ -80,9 +80,21 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      deleteCategory: moduleActions.DELETE.SINGLE,
+    }),
     onClick() {
       console.log('onclick')
       this.$router.push('/123123')
+    },
+    onEdit(payload) {
+      this.$router.push(`/admin/productCategories/edit/${payload.rowData.id}`)
+    },
+    async onDelete(payload) {
+      this.$loading()
+      await this.deleteCategory(payload.rowData.id)
+      await this.$fetch()
+      this.$loading().close()
     },
   },
 }

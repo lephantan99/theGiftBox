@@ -73,7 +73,7 @@ export default {
     query.filter = JSON.stringify(query.filter)
 
     const response = await this.$authApi.get(
-      'categories?' + qs.stringify(query, { arrayFormat: 'repeat' })
+      'product_categories?' + qs.stringify(query, { arrayFormat: 'repeat' })
     )
     commit(categoryMutations.ADD.DATA, response.data.results, { root: true })
     if (response.data.results.length < 1) {
@@ -83,20 +83,20 @@ export default {
     return response.data.results
   },
   async fetchSingle({ commit }, id) {
-    const response = await this.$authApi.get('/categories/' + id)
+    const response = await this.$authApi.get('/product_categories/' + id)
     commit(categoryMutations.SET.VIEWING, response.data, { root: true })
     return response
   },
   async submitSingle({ rootState }, form) {
-    const response = await this.$authApi.post('/categories', form)
+    const response = await this.$authApi.post('/product_categories', form)
     return response
   },
   async updateSingle({ rootState }, { id, form }) {
-    const response = await this.$authApi.put('/categories/' + id, form)
+    const response = await this.$authApi.put('/product_categories/' + id, form)
     return response
   },
   async deleteSingle({ rootState }, id) {
-    const response = await this.$authApi.delete('/categories/' + id)
+    const response = await this.$authApi.delete('/product_categories/' + id)
     return response
   },
 }

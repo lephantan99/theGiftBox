@@ -68,11 +68,11 @@ export default {
       moduleActions,
       moduleGetters,
       userTableActions: [
-        {
-          name: 'edit',
-          label: 'table.edit',
-          permission: ['ALL'],
-        },
+        // {
+        //   name: 'edit',
+        //   label: 'table.edit',
+        //   permission: ['ALL'],
+        // },
         {
           name: 'delete',
           label: 'table.delete',
@@ -96,10 +96,19 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      delete: moduleActions.DELETE.SINGLE,
+    }),
     moment,
     onClick() {
       console.log('onclick')
       this.$router.push('/123123')
+    },
+    async onDelete(payload) {
+      this.$loading()
+      await this.delete(payload.rowData.id)
+      await this.$fetch()
+      this.$loading().close()
     },
   },
 }

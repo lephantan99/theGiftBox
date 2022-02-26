@@ -1,9 +1,9 @@
 <template>
   <div>
-    <Breadcrumb :title="$t('post.category.title')" />
-    <!-- <CategoryFilterBar
-      @my-category-filter="onFilter"
-      @my-category-filter-refresh="onRefreshFilter"
+    <Breadcrumb :title="$t('review.title')" />
+    <!-- <TagFilterBar
+      @my-review-filter="onFilter"
+      @my-review-filter-refresh="onRefreshFilter"
     /> -->
     <DataTable
       v-loading="$fetchState.pending"
@@ -12,23 +12,30 @@
       :limit="limit"
       :current-page="currentPage"
       :multiple-choice="false"
-      :actions="categoryTableActions"
+      :actions="reviewTableActions"
+      :is-add="false"
       @my-table-on-action="handleTableEvents"
       @my-table-delete="onDelete"
-      @my-table-add-new="$router.push(`/admin/categories/create`)"
     >
       <el-table-column type="index" width="50" label="STT" />
       <!-- eslint-disable prettier/prettier -->
       <!-- Just disable prettier/prettier here for shorter code -->
       <!-- <el-table-column :label="$t('drinks.index.code')" prop="id" /> -->
-      <el-table-column :label="$t('post.category.name')" prop="enName" />
-      <el-table-column :label="$t('post.category.description')" prop="enDescription" >
+      <el-table-column :label="$t('review.index.name')" prop="firstName" >
         <template slot-scope="scope">
-          <div class="truncate" >{{ scope.row.enDescription}}</div>
+          {{ $e(scope.row.user, 'lastName') + ' ' +  $e(scope.row.user, 'firstName')}}
+
         </template>
       </el-table-column>
-      <el-table-column :label="$t('post.category.createdBy')" prop="user.firstName" />
-      <!-- <el-table-column :label="$t('drinks.index.types')" prop="category.name" /> -->
+      <el-table-column :label="$t('review.index.title')" prop="title" />
+      <el-table-column :label="$t('review.index.content')" prop="content" />
+      <el-table-column :label="$t('review.index.createdAt')" prop="createdAt" >
+        <template slot-scope="scope">
+          {{ moment(scope.row.createdAt).format('DD/MM/YYYY') }}
+
+        </template>
+      </el-table-column>
+      <!-- <el-table-column :label="$t('drinks.index.types')" prop="review.name" /> -->
       <!-- eslint-enable prettier/prettier -->
     </DataTable>
   </div>
@@ -37,25 +44,28 @@
 import { Breadcrumb } from '~templates/Breadcrumb'
 import { DataTable } from '~templates/Table'
 import { mapState, mapActions, mapMutations } from 'vuex'
-// import { CategoryFilterBar } from '~/components/uncommon/Category'
-import { postCategoryMutations as moduleMutations } from '~/store/post/category/mutations'
-import { postCategoryActions as moduleActions } from '~/store/post/category/actions'
-import { postCategoryGetters as moduleGetters } from '~/store/post/category/getters'
+// import { TagFilterBar } from '~/components/uncommon/Tag'
+import moment from 'moment'
+import { reviewMutations as moduleMutations } from '~/store/review/mutations'
+import { reviewActions as moduleActions } from '~/store/review/actions'
+import { reviewGetters as moduleGetters } from '~/store/review/getters'
 import dataTableMixin from '~/mixins/components/table'
+import auth from '~/middleware/auth'
 
 export default {
   components: {
     Breadcrumb,
     DataTable,
-    // CategoryFilterBar,
+    // TagFilterBar,
   },
+  middleware: [auth],
   mixins: [dataTableMixin],
   data() {
     return {
       moduleMutations,
       moduleActions,
       moduleGetters,
-      categoryTableActions: [
+      reviewTableActions: [
         {
           name: 'delete',
           label: 'table.delete',
@@ -66,32 +76,30 @@ export default {
   },
   computed: {
     ...mapState({
-      data: (state) => state.post.category.data,
-      limit: (state) => state.post.category.query.count,
-      currentPage: (state) => state.post.category.query.page,
-      dataTotal: (state) => state.post.category.total,
+      data: (state) => state.review.data,
+      limit: (state) => state.review.query.count,
+      currentPage: (state) => state.review.query.page,
+      dataTotal: (state) => state.review.total,
     }),
   },
   meta: {
     config: {
       auth: true,
-      permission: ['ALL'],
+      permission: ['ADMIN'],
     },
   },
   methods: {
     ...mapActions({
-      deleteCategory: moduleActions.DELETE.SINGLE,
+      deleteReview: moduleActions.DELETE.SINGLE,
     }),
-    onEdit(payload) {
-      this.$router.push(`/admin/categories/edit/${payload.rowData.id}`)
-    },
+    moment,
     onClick() {
       console.log('onclick')
       this.$router.push('/123123')
     },
     async onDelete(payload) {
       this.$loading()
-      await this.deleteCategory(payload.rowData.id)
+      await this.deleteReview(payload.rowData.id)
       await this.$fetch()
       this.$loading().close()
     },

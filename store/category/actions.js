@@ -1,94 +1,94 @@
 import qs from 'qs'
-import { postMutations } from './mutations'
+import { categoryMutations } from './mutations'
 
-export const postActions = {
+export const categoryActions = {
   FETCH: {
     /**
-     * Used to fetch posts with this module's query state
+     * Used to fetch categories with this module's query state
      */
-    DATA: 'post/fetchData',
+    DATA: 'category/fetchData',
     /**
-     * Used to fetch more posts with current query state into this module's data
+     * Used to fetch more categories with current query state into this module's data
      */
-    MORE: 'post/fetchMoreData',
+    MORE: 'category/fetchMoreData',
     /**
-     * Used to fetch one post
+     * Used to fetch one category
      */
-    SINGLE: 'post/fetchSingle',
+    SINGLE: 'category/fetchSingle',
   },
   SUBMIT: {
     /**
-     * Used to create multiple posts
+     * Used to create multiple categories
      */
-    // MULTIPLE: 'post/submitMultiple',
+    // MULTIPLE: 'category/submitMultiple',
     /**
-     * Used to create a new post
+     * Used to create a new category
      */
-    SINGLE: 'post/submitSingle',
+    SINGLE: 'category/submitSingle',
   },
   UPDATE: {
     /**
-     * Used to update multiple posts' information
+     * Used to update multiple categories' information
      */
-    // MULTIPLE: 'post/updateMultiple',
+    // MULTIPLE: 'category/updateMultiple',
     /**
-     * Used to update one post's information
+     * Used to update one category's information
      */
-    SINGLE: 'post/updateSingle',
+    SINGLE: 'category/updateSingle',
   },
   TOGGLE: {},
   ACTIVATE: {},
   DEACTIVATE: {},
   DELETE: {
     /**
-     * Used to delete multiple posts
+     * Used to delete multiple categories
      */
-    // MULTIPLE: 'post/deleteMultiple',
+    // MULTIPLE: 'category/deleteMultiple',
     /**
-     * Used to delete one post
+     * Used to delete one category
      */
-    SINGLE: 'post/deleteSingle',
+    SINGLE: 'category/deleteSingle',
   },
 }
 
 export default {
   async fetchData({ state, commit }) {
     const response = await this.$clientApi.get(
-      '/posts?' + qs.stringify(state.query, { arrayFormat: 'repeat' })
+      '/categories?' + qs.stringify(state.query, { arrayFormat: 'repeat' })
     )
-    commit(postMutations.SET.DATA, response.data.data, { root: true })
+    commit(categoryMutations.SET.DATA, response.data.data, { root: true })
     // Fix total later
-    commit(postMutations.SET.TOTAL, response.data.total, { root: true })
+    commit(categoryMutations.SET.TOTAL, response.data.total, { root: true })
     return response.data
   },
   async fetchMoreData({ state, commit }) {
-    commit(postMutations.INC.QUERY_PAGE, {}, { root: true })
+    commit(categoryMutations.INC.QUERY_PAGE, {}, { root: true })
 
     const response = await this.$authApi.get(
-      '/posts?' + qs.stringify(state.query, { arrayFormat: 'repeat' })
+      '/categories?' + qs.stringify(state.query, { arrayFormat: 'repeat' })
     )
-    commit(postMutations.ADD.DATA, response.data.results, { root: true })
+    commit(categoryMutations.ADD.DATA, response.data.results, { root: true })
     if (response.data.results.length < 1) {
       // If has no data, substract the query offset by limit, so it doesn't add offset forever with no data
-      commit(postMutations.SUB.QUERY_PAGE, {}, { root: true })
+      commit(categoryMutations.SUB.QUERY_PAGE, {}, { root: true })
     }
     return response.data.results
   },
   async fetchSingle({ commit }, id) {
-    const response = await this.$authApi.get('/posts/' + id)
-    commit(postMutations.SET.VIEWING, response.data, { root: true })
+    const response = await this.$authApi.get('/categories/' + id)
+    commit(categoryMutations.SET.VIEWING, response.data, { root: true })
     return response
   },
   async submitSingle({ rootState }, form) {
-    const response = await this.$authApi.post('/posts', form)
+    const response = await this.$authApi.post('/categories', form)
     return response
   },
   async updateSingle({ rootState }, { id, form }) {
-    const response = await this.$authApi.put('/posts/' + id, form)
+    const response = await this.$authApi.put('/categories/' + id, form)
     return response
   },
   async deleteSingle({ rootState }, id) {
-    const response = await this.$authApi.delete('/posts/' + id)
+    const response = await this.$authApi.delete('/categories/' + id)
     return response
   },
 }

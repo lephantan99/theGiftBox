@@ -16,7 +16,7 @@
       @my-table-on-action="handleTableEvents"
       @my-table-edit="onEdit"
       @my-table-delete="onDelete"
-      @my-table-add-new="$router.push(`/${roleGroup}/posts/create`)"
+      @my-table-add-new="$router.push(`/admin/posts/create`)"
     >
       <el-table-column type="index" width="50" label="STT" />
       <!-- eslint-disable prettier/prettier -->
@@ -89,9 +89,21 @@ export default {
     },
   },
   methods: {
+    ...mapActions({
+      delete: moduleActions.DELETE.SINGLE,
+    }),
     onClick() {
       console.log('onclick')
       this.$router.push('/123123')
+    },
+    onEdit(payload) {
+      this.$router.push(`/admin/posts/edit/${payload.rowData.id}`)
+    },
+    async onDelete(payload) {
+      this.$loading()
+      await this.delete(payload.rowData.id)
+      await this.$fetch()
+      this.$loading().close()
     },
   },
 }

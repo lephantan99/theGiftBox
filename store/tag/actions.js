@@ -80,7 +80,7 @@ export default {
     return response
   },
   async submitSingle({ rootState }, form) {
-    const response = await this.$authApi.tag('/tags', form)
+    const response = await this.$authApi.post('/tags', form)
     return response
   },
   async updateSingle({ rootState }, { id, form }) {

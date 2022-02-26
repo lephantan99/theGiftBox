@@ -92,6 +92,7 @@ export default {
   methods: {
     ...mapActions({
       fetchSingleProduct: productActions.FETCH.SINGLE,
+      deleteProduct: productActions.DELETE.SINGLE,
     }),
     fillForm() {
       Object.keys(this.form).forEach((key) => {
@@ -104,6 +105,12 @@ export default {
     },
     onEdit(payload) {
       this.$router.push(`/admin/products/edit/${payload.rowData.id}`)
+    },
+    async onDelete(payload) {
+      this.$loading()
+      await this.deleteProduct(payload.rowData.id)
+      await this.$fetch()
+      this.$loading().close()
     },
   },
 }

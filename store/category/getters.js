@@ -1,8 +1,8 @@
-export const productGetters = {
+export const categoryGetters = {
   /**
-   * Used to get product's query state
+   * Used to get category's query state
    */
-  QUERY: 'product/query',
+  QUERY: 'category/query',
 }
 
 export default {

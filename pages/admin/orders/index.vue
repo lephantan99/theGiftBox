@@ -22,6 +22,7 @@
       :multiple-choice="false"
       :actions="orderTableActions"
       @my-table-on-action="handleTableEvents"
+      @my-table-delete="onDelete"
       @my-table-edit="onEdit"
     >
       <el-table-column type="index" width="50" label="STT" />
@@ -138,6 +139,7 @@ export default {
   methods: {
     ...mapActions({
       fetchOrder: moduleActions.FETCH.DATA,
+      delete: moduleActions.DELETE.SINGLE,
     }),
     ...mapMutations({
       setViewing: moduleMutations.SET.VIEWING,
@@ -175,6 +177,12 @@ export default {
       console.log('payload', payload)
       await this.setViewing(payload.rowData)
       this.$router.push(`/admin/orders/edit/${payload.rowData.id}`)
+    },
+    async onDelete(payload) {
+      this.$loading()
+      await this.delete(payload.rowData.id)
+      await this.$fetch()
+      this.$loading().close()
     },
   },
 }

@@ -1,46 +1,46 @@
 import Vue from 'vue'
 
-export const postMutations = {
+export const categoryMutations = {
   SET: {
     /**
      * Used to set the data array state of this module
      */
-    DATA: 'post/SET_DATA',
+    DATA: 'category/SET_DATA',
     /**
      * Used to set the total state of this module
      */
-    TOTAL: 'post/SET_TOTAL',
+    TOTAL: 'category/SET_TOTAL',
     /**
      * Used to set the query state of this module
      */
-    QUERY: 'post/SET_QUERY',
+    QUERY: 'category/SET_QUERY',
     /**
      * Used to set the current being viewed user
      */
-    VIEWING: 'post/SET_VIEWING',
+    VIEWING: 'category/SET_VIEWING',
   },
   CLEAR: {
     /**
      * Used to clear the query state of this module to default
      */
-    QUERY: 'post/CLEAR_QUERY',
+    QUERY: 'category/CLEAR_QUERY',
   },
   TOGGLE: {},
   ADD: {
-    DATA: 'post/ADD_DATA',
+    DATA: 'category/ADD_DATA',
   },
   REMOVE: {},
   INC: {
     /**
      * Use to increase the offset state of this module in query by 1
      */
-    QUERY_PAGE: 'post/INC_QUERY_OFFSET',
+    QUERY_PAGE: 'category/INC_QUERY_OFFSET',
   },
   SUB: {
     /**
      * Use to decrease the offset state of this module in query by 1
      */
-    QUERY_PAGE: 'post/SUB_QUERY_OFFSET',
+    QUERY_PAGE: 'category/SUB_QUERY_OFFSET',
   },
 }
 

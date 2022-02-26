@@ -84,11 +84,19 @@
       </div>
     </div>
     <div class="mt-12 flex justify-between uppercase font-bold text-xl">
-      <div class="cursor-pointer">Quà tặng gợi ý</div>
-      <div class="cursor-pointer">Quà tặng cho nam</div>
-      <div class="cursor-pointer">Quà tặng cho nữ</div>
-      <div class="cursor-pointer">Các dịp lễ</div>
-      <div class="cursor-pointer">Ưu đãi</div>
+      <div class="cursor-pointer" @click="$router.push('/')">
+        Quà tặng gợi ý
+      </div>
+      <div class="cursor-pointer" @click="$router.push('/')">
+        Quà tặng cho nam
+      </div>
+      <div class="cursor-pointer" @click="$router.push('/')">
+        Quà tặng cho nữ
+      </div>
+      <div class="cursor-pointer" @click="$router.push('/')">Các dịp lễ</div>
+      <div class="cursor-pointer" @click="$router.push('/client/post')">
+        Bài viết
+      </div>
     </div>
   </div>
 </template>
