@@ -70,6 +70,9 @@
                 {{ $t('navbar.info') }}
               </el-dropdown-item>
               <el-dropdown-item
+                v-if="
+                  auth.role.name === 'ADMIN' || auth.role.name === 'OPERATOR'
+                "
                 command="goToAdmin"
                 class="font-bold text-theme-1 hover:bg-theme-1-200"
               >

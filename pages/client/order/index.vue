@@ -264,6 +264,11 @@ export default {
           method: 'POST',
           headers: {
             'Access-Control-Allow-Origin': '*',
+            // 'Access-Control-Allow-Credentials': 'true',
+            // 'Access-Control-Allow-Methods':
+            //   'GET, POST, PATCH, PUT, DELETE, OPTIONS',
+            // 'Access-Control-Allow-Headers':
+            //   'append,delete,entries,foreach,get,has,keys,set,values,Authorization',
             'Content-Type': 'application/json',
             'Content-Length': Buffer.byteLength(requestBody),
           },

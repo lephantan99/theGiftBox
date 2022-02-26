@@ -56,14 +56,14 @@
               </el-col>
             </el-row>
           </el-row>
+          <div v-if="!isShow" class="flex justify-end">
+            <el-button type="success" @click="isShow = !isShow">
+              Đánh giá
+            </el-button>
+          </div>
           <el-row v-for="(item, index) in orders" :key="item.id + 'review'">
-            <div v-if="!isShow" class="flex justify-end">
-              <el-button type="success" @click="isShow = !isShow">
-                Đánh giá
-              </el-button>
-            </div>
             <FormWrapper
-              v-else
+              v-if="isShow"
               :model="form"
               class="mt-6"
               @onSubmit="onSubmitReview(index)"
@@ -166,11 +166,19 @@ export default {
       const products = this.orders[index].orderProducts.map((e) => {
         return { id: e.product.id }
       })
-      this.form = {
-        ...this.form,
-        products,
-      }
-      this.submitReview(this.form)
+      products.forEach((element) => {
+        console.log(element)
+        const payload = {
+          ...this.form,
+          products: [element],
+        }
+        this.submitReview(payload)
+      })
+      // this.form = {
+      //   ...this.form,
+      //   products,
+      // }
+      // this.submitReview(this.form)
     },
   },
 }

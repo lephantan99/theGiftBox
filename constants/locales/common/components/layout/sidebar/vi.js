@@ -1,5 +1,7 @@
 export default {
-  home: 'Dashboard',
+  home: 'Home',
+  dashboard: 'Dashboard',
+  user: 'User',
   'blogs-management': 'Blog Management',
   'posts-management': 'Post Management',
   'product-management': 'Product Management',

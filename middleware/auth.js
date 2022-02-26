@@ -28,6 +28,7 @@ export default function ({ route, store, redirect }) {
     }
   }
   // Check authorization
+  console.log('here', config)
   if (config?.permission) {
     // Check if configurated role if valid
     if (process.env.NODE_ENV === 'development') {

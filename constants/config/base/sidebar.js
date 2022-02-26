@@ -4,14 +4,14 @@ export const sidebar = {
   config: {},
   groups: [
     {
-      name: 'home',
+      name: 'user',
       components: [
         {
-          module: 'home', // Module name for localization
+          module: 'user', // Module name for localization
           icon: ['fas', 'tachometer-alt'], // Fontawesome or Element UI icon
           color: 'var(--color-yellow)', // Must be CSS variables
-          route: { name: 'index' }, // path or route object ({ name: 'route-name',... })
-          permission: ALL, // ALL or match ./auth.js
+          route: { name: 'users' }, // path or route object ({ name: 'route-name',... })
+          permission: ['ADMIN'], // ALL or match ./auth.js
         },
       ],
     },

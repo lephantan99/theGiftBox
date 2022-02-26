@@ -80,6 +80,8 @@ import { orderActions as moduleActions } from '~/store/order/actions'
 import { orderGetters as moduleGetters } from '~/store/order/getters'
 import dataTableMixin from '~/mixins/components/table'
 
+import auth from '~/middleware/auth'
+
 export default {
   components: {
     Breadcrumb,
@@ -90,7 +92,7 @@ export default {
     config,
   },
   mixins: [dataTableMixin],
-  middleware: ['auth'],
+  middleware: [auth],
   async fetch() {
     await this.clearQuery()
     await this.fetchOrder()

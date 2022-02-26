@@ -40,7 +40,9 @@
 import { mapState } from 'vuex'
 import SidebarItem from './SidebarItem'
 import { sidebar } from '~/constants/config/base/sidebar'
+import auth from '~/middleware/auth'
 export default {
+  middleware: [auth],
   name: 'Sidebar',
   components: {
     SidebarItem,

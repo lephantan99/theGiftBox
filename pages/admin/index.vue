@@ -2,14 +2,17 @@
   <el-main></el-main>
 </template>
 <script>
+import auth from '~/middleware/auth'
 export default {
   meta: {
     config: {
       auth: true,
-      permission: ['ALL'],
+      permission: ['ADMIN', 'OPERATOR'],
     },
   },
+
   middleware: [
+    auth,
     ({ store, redirect }) => {
       if (
         store.state.auth?.data.role.name === 'ADMIN' ||
@@ -17,11 +20,9 @@ export default {
       ) {
         console.log('Chỉ cho admin và ope truy cập trang admin')
 
-        // return this.$router.push('/admin')
+        // return redirect('/admin')
       } else {
-        console.log('heree3')
-
-        // return redirect('')
+        return redirect('/')
       }
     },
   ],
