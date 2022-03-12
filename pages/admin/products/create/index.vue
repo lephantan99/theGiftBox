@@ -1,7 +1,7 @@
 <template>
   <el-main class="p-8">
     <Breadcrumb
-      :title="$t('products.create.title')"
+      :title="$t('product.create.title')"
       des-route="products"
       has-back-button
     />
@@ -9,7 +9,7 @@
       <!-- Thông tin sản phẩm -->
       <el-card shadow="never" style="border-radius: 15px" class="border-none">
         <h2 class="text-lg font-bold text-dark mb-5">
-          {{ $t('products.create.title') }}
+          {{ $t('product.create.title') }}
         </h2>
         <InputWrapper
           rules="required"
@@ -61,7 +61,7 @@
         </InputWrapper>
         <InputWrapper prop="avatar" class="el-default-input mb-3 flex-1">
           <label class="my-1 inline-block text-dark">
-            {{ $t('products.index.mainImage') }}
+            {{ $t('product.index.mainImage') }}
           </label>
           <FileUploader v-model="imageList" :limit="1" preview />
           <!-- <MediaPicker
@@ -276,7 +276,7 @@ export default {
   },
   head() {
     return {
-      title: this.$t('products.create.title'),
+      title: this.$t('product.create.title'),
     }
   },
 }

@@ -62,8 +62,10 @@ export default {
   },
   CLEAR_QUERY(state) {
     Vue.set(state, 'query', {
-      offset: 0,
-      limit: 10,
+      page: 1,
+      count: 10,
+      pageCount: 2,
+      sort: 'id,ASC',
     })
   },
   INC_QUERY_OFFSET(state) {

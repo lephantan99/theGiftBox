@@ -15,14 +15,19 @@
         class="mt-5 cursor-pointer"
         @click.native="gotoDetailProduct(item, index)"
       >
-        <el-card>
-          <el-image :src="item.mainImage" fit="contain"> </el-image>
+        <el-card class="h-[28rem]">
+          <el-image :src="item.mainImage" class="w-full h-[280px]" fit="fill">
+          </el-image>
           <el-tag type="warning">{{ item.product_categories[0].name }}</el-tag>
           <br />
           {{ item.name }}
           <br />
           <p class="line-through">{{ (item.cost * 1.2) | formatVnd }}</p>
           {{ item.cost | formatVnd }} <el-tag type="info">-16%</el-tag>
+          <br />
+          <p class="text-xs">
+            Thời gian chuẩn bị: {{ item.preparationTime }} h
+          </p>
         </el-card>
       </el-col>
     </el-row>

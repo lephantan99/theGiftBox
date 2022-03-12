@@ -1,10 +1,10 @@
 <template>
   <div>
-    <el-container class="main">
+    <el-container class="main relative min-h-[980px]">
       <Header />
       <!-- el-main -->
       <nuxt class="relative" />
-      <Footer />
+      <Footer class="absolute bottom-0 left-0 h-72 mb-[-300px]" />
     </el-container>
   </div>
 </template>

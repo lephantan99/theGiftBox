@@ -24,7 +24,7 @@
             <el-input v-model="form.email" placeholder="mail_cua_ban@gmail.com">
             </el-input>
           </InputWrapper>
-          <InputWrapper prop="password" rules="required" label="Password">
+          <InputWrapper prop="password" rules="required" label="Mật khẩu">
             <el-input
               v-model="form.password"
               placeholder="Hãy nhập mật khẩu"

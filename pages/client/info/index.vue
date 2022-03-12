@@ -55,13 +55,60 @@
                 </el-row>
               </el-col>
             </el-row>
+            <div
+              v-if="!isShow && item.status === 'FINISHED'"
+              class="flex justify-end"
+            >
+              <el-button type="success" @click="onReview(index)">
+                Đánh giá
+              </el-button>
+            </div>
           </el-row>
-          <div v-if="!isShow" class="flex justify-end">
-            <el-button type="success" @click="isShow = !isShow">
-              Đánh giá
-            </el-button>
-          </div>
-          <el-row v-for="(item, index) in orders" :key="item.id + 'review'">
+
+          <el-row v-if="isShow">
+            <p class="mt-10 font-bold">
+              Gửi đánh giá cho đơn hàng thứ {{ orderId }}
+            </p>
+            <FormWrapper :model="form" class="mt-6" @onSubmit="onSubmitReview">
+              <InputWrapper prop="title" label="Tiêu đề đánh giá">
+                <el-input
+                  v-model="form.title"
+                  placeholder="Hãy nhập tiêu đề đánh giá"
+                >
+                </el-input>
+              </InputWrapper>
+              <InputWrapper
+                prop="content"
+                rules="required"
+                label="Nội dung đánh giá"
+              >
+                <el-input
+                  v-model="form.content"
+                  placeholder="Hãy nhập nội dung đánh giá"
+                  type="type"
+                >
+                </el-input>
+              </InputWrapper>
+              <el-row class="flex justify-end">
+                <el-button
+                  type="primary"
+                  class="font-bold text-white"
+                  @click="isShow = !isShow"
+                >
+                  Hủy
+                </el-button>
+                <el-button
+                  type="primary"
+                  native-type="submit"
+                  class="font-bold text-white"
+                >
+                  Gửi đánh giá
+                </el-button>
+              </el-row>
+            </FormWrapper>
+          </el-row>
+
+          <!-- <el-row v-for="(item, index) in orders" :key="item.id + 'review'">
             <FormWrapper
               v-if="isShow"
               :model="form"
@@ -104,7 +151,7 @@
                 </el-button>
               </el-row>
             </FormWrapper>
-          </el-row>
+          </el-row> -->
         </el-card>
       </el-col>
     </el-row>
@@ -147,6 +194,7 @@ export default {
         title: null,
         content: null,
       },
+      orderId: null,
     }
   },
   computed: mapState({
@@ -162,8 +210,8 @@ export default {
     ...mapMutations({
       setQuery: orderMutations.SET.QUERY,
     }),
-    onSubmitReview(index) {
-      const products = this.orders[index].orderProducts.map((e) => {
+    onSubmitReview() {
+      const products = this.orders[this.orderId - 1].orderProducts.map((e) => {
         return { id: e.product.id }
       })
       products.forEach((element) => {
@@ -179,6 +227,11 @@ export default {
       //   products,
       // }
       // this.submitReview(this.form)
+    },
+    onReview(index) {
+      this.orderId = null
+      this.orderId = index + 1
+      this.isShow = !this.isShow
     },
   },
 }

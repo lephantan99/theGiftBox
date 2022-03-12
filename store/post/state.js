@@ -5,6 +5,7 @@ export default () => ({
     page: 1,
     count: 10,
     pageCount: 2,
+    sort: 'id,ASC',
   },
   viewing: null,
   navigationTabs: [

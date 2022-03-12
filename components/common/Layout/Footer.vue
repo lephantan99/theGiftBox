@@ -2,7 +2,7 @@
   <el-footer
     class="default-footer bg-gray-300 text-black w-full h-full text-center p-8"
   >
-    <el-row>
+    <el-row :gutter="20">
       <el-col :span="6">
         <el-image
           :src="require('~/assets/img/logo.png')"
@@ -10,8 +10,11 @@
         />
         <p>www.giftbox.com là kênh cung cấp dịch vụ quà tặng.</p>
       </el-col>
-      <el-col :span="6">
+      <el-col :span="6" class="items-start flex flex-col">
         <p class="font-thin text-2xl">Danh mục sản phẩm</p>
+        <p class="mt-2">Quà tặng cho nam</p>
+        <p>Quà tặng cho nữ</p>
+        <p>Quà tặng các dịp lễ</p>
       </el-col>
       <el-col :span="6" class="items-start flex flex-col">
         <p class="font-thin text-2xl">Thông tin và hướng dẫn</p>

@@ -1,5 +1,9 @@
 <template>
-  <el-main></el-main>
+  <el-main>
+    <p class="text-center font-bold text-2xl">
+      Chào mừng bạn đến với trang quản trị của The Gift Box
+    </p>
+  </el-main>
 </template>
 <script>
 import auth from '~/middleware/auth'

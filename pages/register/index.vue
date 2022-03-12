@@ -20,17 +20,17 @@
           Tạo tài khoản để bắt đầu sử dụng The Gift Box
         </p>
         <FormWrapper :model="form" class="mt-1" @onSubmit="postRegister">
-          <InputWrapper prop="lastName" rules="required" label="LastName">
+          <InputWrapper prop="lastName" rules="required" label="Họ">
             <el-input v-model="form.lastName" placeholder="Họ"> </el-input>
           </InputWrapper>
-          <InputWrapper prop="firstName" rules="required" label="FirstName">
+          <InputWrapper prop="firstName" rules="required" label="Tên">
             <el-input v-model="form.firstName" placeholder="Tên"> </el-input>
           </InputWrapper>
           <InputWrapper prop="email" rules="required|email" label="Email">
             <el-input v-model="form.email" placeholder="email@gmail.com">
             </el-input>
           </InputWrapper>
-          <InputWrapper prop="password" rules="required" label="Password">
+          <InputWrapper prop="password" rules="required" label="Mật khẩu">
             <el-input
               v-model="form.password"
               placeholder="Hãy nhập mật khẩu"
@@ -39,16 +39,17 @@
             >
             </el-input>
           </InputWrapper>
-          <InputWrapper prop="gender" rules="required" label="Gender">
+          <InputWrapper prop="gender" rules="required" label="Giới tính">
+            <br />
             <br />
             <el-radio-group v-model="form.gender">
               <el-radio label="MALE">Nam</el-radio>
               <el-radio label="FEMALE">Nữ</el-radio>
             </el-radio-group>
           </InputWrapper>
-          <InputWrapper prop="birthday" rules="required" label="Birthday">
+          <InputWrapper prop="birthday" rules="required" label="Sinh nhật">
             <br />
-
+            <br />
             <el-date-picker
               v-model="form.birthday"
               type="date"
@@ -56,7 +57,11 @@
             >
             </el-date-picker>
           </InputWrapper>
-          <InputWrapper prop="phoneNumber" rules="required" label="PhoneNumber">
+          <InputWrapper
+            prop="phoneNumber"
+            rules="required"
+            label="Số điện thoại"
+          >
             <br />
             <el-input
               v-model="form.phoneNumber"

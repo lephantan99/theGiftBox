@@ -5,15 +5,40 @@
         :src="require('~/assets/img/logo.png')"
         class="logo_header cursor-pointer"
       />
-      <div class="w-1/3">
-        <el-input
-          v-model="input"
-          placeholder="Please input"
-          class="input-with-select"
-        >
-          <el-button slot="append" icon="el-icon-search"></el-button>
-        </el-input>
-      </div>
+      <el-row class="w-1/2 flex" :gutter="20">
+        <el-col :span="12">
+          <el-input
+            v-model="input"
+            placeholder="Tìm kiếm sản phẩm"
+            class="input-with-select"
+          >
+            <el-button
+              slot="append"
+              icon="el-icon-search"
+              @click="onSearch"
+            ></el-button>
+          </el-input>
+        </el-col>
+        <el-col :span="10">
+          <el-select
+            v-model="sort"
+            placeholder="Sắp xếp theo thời gian chuẩn bị"
+            class="w-full"
+            @change="onSearch"
+          >
+            <el-option
+              v-for="item in options"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            >
+            </el-option>
+          </el-select>
+        </el-col>
+        <el-col :span="2">
+          <el-button @click="onReset">Bỏ lọc</el-button>
+        </el-col>
+      </el-row>
       <div class="w-1/5 flex justify-between items-center">
         <!-- <fa
           :icon="['far', 'heart']"
@@ -102,9 +127,11 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations, mapActions } from 'vuex'
 import confirmAction from '~/mixins/confirmActions'
 import { authActions } from '~/store/auth/actions'
+import { productActions } from '~/store/product/actions'
+import { productMutations } from '~/store/product/mutations'
 
 export default {
   name: 'Header',
@@ -112,6 +139,11 @@ export default {
   data() {
     return {
       input: '',
+      sort: '',
+      options: [
+        { value: 'ASC', label: 'Tăng dần' },
+        { value: 'DESC', label: 'Giảm dần' },
+      ],
     }
   },
   computed: {
@@ -122,6 +154,42 @@ export default {
     }),
   },
   methods: {
+    ...mapActions({
+      fetchProduct: productActions.FETCH.DATA,
+    }),
+    ...mapMutations({
+      setQuery: productMutations.SET.QUERY,
+      clearQuery: productMutations.CLEAR.QUERY,
+    }),
+    async onSearch() {
+      await this.$router.push('/')
+      if (this.sort !== '' && this.input !== '') {
+        await this.setQuery({
+          filter: `name||$contL||${this.input}`,
+          sort: `preparationTime,${this.sort}`,
+        })
+        await this.fetchProduct()
+      } else if (this.input !== '') {
+        await this.setQuery({
+          filter: `name||$contL||${this.input}`,
+        })
+        await this.fetchProduct()
+      } else if (this.sort !== '') {
+        await this.setQuery({
+          sort: `preparationTime,${this.sort}`,
+        })
+        await this.fetchProduct()
+      } else {
+        this.clearQuery()
+        await this.fetchProduct()
+      }
+    },
+    onReset() {
+      this.input = ''
+      this.sort = ''
+      this.clearQuery()
+      this.fetchProduct()
+    },
     onShowWishList() {
       this.$router.push('/client/wishlist')
     },
