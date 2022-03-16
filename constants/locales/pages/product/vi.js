@@ -4,6 +4,7 @@ export default {
     name: 'Name',
     description: 'Description',
     cost: 'Cost (Step 10000)',
+    sale: 'Sale',
     mainImage: 'Main Image Product',
     preparationTime: 'Preparation Time',
     content: 'Content',

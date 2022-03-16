@@ -117,7 +117,7 @@
             :disabled="step > 2"
             @click="onChangeStatus('DELIVERY')"
           >
-            Đang phân phối
+            Đã phân phối
           </el-button>
           <el-button
             type="success"

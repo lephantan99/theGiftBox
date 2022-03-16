@@ -9,7 +9,7 @@
       <el-tab-pane label="Đang chờ" name="pending"></el-tab-pane>
       <el-tab-pane label="Đã xác nhận" name="confirmed"></el-tab-pane>
       <el-tab-pane label="Đang chuẩn bị" name="preparing"></el-tab-pane>
-      <el-tab-pane label="Đang giao hàng" name="delivery"></el-tab-pane>
+      <el-tab-pane label="Đã giao hàng" name="delivery"></el-tab-pane>
       <el-tab-pane label="Đã hoàn thành" name="finished"></el-tab-pane>
     </el-tabs>
     <DataTable
@@ -47,7 +47,7 @@
       </el-table-column>
       <el-table-column :label="$t('order.status')" prop="status" >
         <template slot-scope="scope">
-          <!-- <div class="truncate" >{{ scope.row.status === 'PENDING' ? 'Đang chờ' : scope.row.status === 'CONFIRMED' ? 'Đã xác nhận' : scope.row.status === 'PREPARING' ? 'Đang chuẩn bị' : scope.row.status === 'DELIVERY' ? 'Đang giao hàng' : 'Hoàn thành' }}</div> -->
+          <!-- <div class="truncate" >{{ scope.row.status === 'PENDING' ? 'Đang chờ' : scope.row.status === 'CONFIRMED' ? 'Đã xác nhận' : scope.row.status === 'PREPARING' ? 'Đang chuẩn bị' : scope.row.status === 'DELIVERY' ? 'Đã giao hàng' : 'Hoàn thành' }}</div> -->
           <div v-if="scope.row.status === 'PENDING'">
             <el-tag>Đang chờ</el-tag>
           </div>
@@ -58,7 +58,7 @@
             <el-tag type="info">Đang chuẩn bị</el-tag>
           </div>
           <div v-else-if="scope.row.status === 'DELIVERY'">
-            <el-tag type="warning">Đang giao hàng</el-tag>
+            <el-tag type="warning">Đã giao hàng</el-tag>
           </div>
           <div v-else>
             <el-tag type="danger">Đã hoàn thành</el-tag>

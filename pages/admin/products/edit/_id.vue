@@ -97,6 +97,21 @@
           ></el-input-number>
         </InputWrapper>
         <InputWrapper
+          rules="required"
+          prop="sale"
+          class="el-default-input dark mb-3 mr-3"
+        >
+          <label class="my-1 block text-dark">
+            {{ $t('product.index.sale') }}<span class="text-red">*</span>
+          </label>
+          <el-input-number
+            v-model="form.sale"
+            :min="5"
+            :max="60"
+            :step="5"
+          ></el-input-number>
+        </InputWrapper>
+        <InputWrapper
           style="width: 200px"
           rules="required"
           prop="preparationTime"
@@ -200,6 +215,7 @@ export default {
         content: null,
         mainImage: null,
         cost: null,
+        sale: null,
         preparationTime: null,
         viewCount: 1,
         product_categories: [],

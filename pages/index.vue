@@ -22,8 +22,13 @@
           <br />
           {{ item.name }}
           <br />
-          <p class="line-through">{{ (item.cost * 1.2) | formatVnd }}</p>
-          {{ item.cost | formatVnd }} <el-tag type="info">-16%</el-tag>
+          <p class="line-through">
+            {{ item.cost | formatVnd }}
+            <!-- {{ (item.cost * (1 + item.sale / 100)) | formatVnd }} -->
+          </p>
+          <!-- {{ item.cost | formatVnd }} -->
+          {{ (item.cost * (1 - item.sale / 100)) | formatVnd }}
+          <el-tag type="info">-{{ item.sale }}%</el-tag>
           <br />
           <p class="text-xs">
             Thời gian chuẩn bị: {{ item.preparationTime }} h
@@ -31,7 +36,7 @@
         </el-card>
       </el-col>
     </el-row>
-    <div class="my-10">
+    <div class="my-10 flex justify-end">
       <el-pagination
         layout="prev, pager, next"
         :total="total"

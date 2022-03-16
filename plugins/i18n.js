@@ -18,6 +18,7 @@ export default ({ app, store, query }, inject) => {
   })
 
   const changeLocale = (locale) => {
+    console.log('here', locale)
     // Set locale in i18n
     app.i18n.locale = locale
     // Set locale in VueX state

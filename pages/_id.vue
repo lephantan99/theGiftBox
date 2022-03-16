@@ -19,9 +19,7 @@
             <div class="flex justify-center text-blue">
               <fa :icon="['fa', 'hand-point-down']" />
             </div>
-            <p class="text-center mt-2">
-              Nhận ngay voucher giảm giá lên đến 20%
-            </p>
+            <p class="text-center mt-2">Nhiều khuyến mãi và ưu đãi</p>
           </el-col>
           <el-col :span="8" class="border-l border-r border-gray-400">
             <div class="flex justify-center text-blue">
@@ -50,8 +48,10 @@
             <div class="flex justify-center items-center">
               <i
                 class="w-6 h-6 text-4xl el-icon-shopping-cart-full cursor-pointer mr-4 mb-4"
-              ></i>
-              Thêm vào giỏ hàng
+              >
+              </i>
+              <p v-if="checkExistCart">Bỏ khỏi giỏ hàng</p>
+              <p v-else>Thêm vào giỏ hàng</p>
             </div>
           </el-button>
           <el-button
@@ -65,7 +65,8 @@
                 :icon="['far', 'heart']"
                 class="w-6 h-6 text-xl cursor-pointer mr-2"
               />
-              Yêu thích
+              <p v-if="checkExistWishList">Bỏ yêu thích</p>
+              <p v-else>Yêu thích</p>
             </div>
           </el-button>
         </el-row>
@@ -92,6 +93,14 @@
         <el-col :span="22">
           <p>{{ item.user.firstName }} {{ item.user.lastName }}</p>
           <p>{{ moment(item.createdAt).format('LLLL') }}</p>
+          <el-rate
+            v-model="item.rating"
+            :texts="['Oops', 'Disappointed', 'Normal', 'Good', 'Great']"
+            show-text
+            disabled
+          >
+          </el-rate>
+
           <br />
           <p>{{ item.title }}</p>
           <p>{{ item.content }}</p>
@@ -117,15 +126,41 @@ export default {
     await this.setViewingProduct(data.data)
     // nếu mà không có thì get theo id url
     // this.$route.params.id
+    const cartLocalStorage =
+      JSON.parse(localStorage.getItem('cart')) !== null
+        ? JSON.parse(localStorage.getItem('cart'))
+        : []
+    this.idCartLocalStorage = cartLocalStorage.map((e) => e.id)
   },
   data() {
     return {
       productData: null,
+      idCartLocalStorage: null,
     }
   },
-  computed: mapState({
-    product: (state) => state.product.viewing,
-  }),
+  computed: {
+    ...mapState({
+      product: (state) => state.product.viewing,
+      idProduct: (state) => state.cart.data.map((e) => e.id),
+      idProductWishList: (state) => state.wishlist.data.map((e) => e.id),
+    }),
+    checkExistCart() {
+      if (
+        this.idProduct.length !== 0 &&
+        this.idProduct.includes(Number(this.$route.params.id))
+      ) {
+        return true
+      } else return false
+    },
+    checkExistWishList() {
+      if (
+        this.idProductWishList.length !== 0 &&
+        this.idProductWishList.includes(Number(this.$route.params.id))
+      ) {
+        return true
+      } else return false
+    },
+  },
 
   meta: {
     config: {

@@ -4,6 +4,15 @@
       <span class="font-bold text-theme-1 m-3"> Left content</span>
     </div> -->
     <div class="flex items-center">
+      <el-switch
+        v-model="isEnData"
+        inactive-text="English"
+        active-color="#13ce66"
+        inactive-color="#ff4949"
+        class="mr-10"
+        @change="onChangeLanguage"
+      >
+      </el-switch>
       <el-dropdown class="flex" @command="handleCommand">
         <div class="h-full flex items-center mr-5">
           <el-avatar
@@ -41,12 +50,21 @@ import confirmAction from '~/mixins/confirmActions'
 import { authActions } from '~/store/auth/actions'
 export default {
   name: 'Navbar',
+  mixins: [confirmAction],
+  data() {
+    return {
+      isEnData: null,
+    }
+  },
+
   computed: {
     ...mapState({
       locale: (state) => state.locale,
     }),
   },
-  mixins: [confirmAction],
+  created() {
+    this.isEnData = this.$store.state.locale === 'en' ? true : false
+  },
   methods: {
     handleCommand(command) {
       console.log('command', command)
@@ -67,11 +85,25 @@ export default {
         )
       }
     },
+    async onChangeLanguage() {
+      if (this.isEnData === true) {
+        // set en
+        // this.setLang('en')
+        this.$changeLocale('en')
+      } else {
+        // set vi
+        // this.setLang('vi')
+        this.$changeLocale('vi')
+      }
+    },
   },
 }
 </script>
 <style lang="scss" scoped>
 .navbar {
   height: 50px;
+}
+/deep/.el-switch__label.is-active {
+  color: initial !important;
 }
 </style>

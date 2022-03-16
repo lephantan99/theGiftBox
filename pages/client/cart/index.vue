@@ -12,7 +12,13 @@
               class="mt-5 cursor-pointer"
             >
               <el-card>
-                <el-image :src="item.mainImage" fit="contain"> </el-image>
+                <el-image
+                  :src="item.mainImage"
+                  fit="fill"
+                  style="height: 300px"
+                  class="w-full"
+                >
+                </el-image>
                 <el-tag type="warning">{{
                   item.product_categories[0].name
                 }}</el-tag>
@@ -31,7 +37,9 @@
                 ></el-input-number>
                 <el-row class="mt-5">
                   <el-col :span="12">
-                    <el-button type="warning"> Bỏ khỏi giỏ hàng </el-button>
+                    <el-button type="warning" @click="onRemoveItem(item)">
+                      Bỏ khỏi giỏ hàng
+                    </el-button>
                   </el-col>
                   <!-- <el-col :span="12">
                     <el-button> Thêm vào giỏ hàng </el-button>
@@ -57,6 +65,7 @@
 </template>
 <script>
 import { mapState, mapActions, mapMutations } from 'vuex'
+import { cartMutations } from '~/store/cart/mutations'
 export default {
   layout: 'clientDefault',
   meta: {
@@ -99,6 +108,19 @@ export default {
     },
     handleChange(value) {
       console.log('123123', value)
+    },
+    onRemoveItem(item) {
+      console.log('heree', item.id)
+      let currentCart =
+        JSON.parse(localStorage.getItem('cart')) !== null
+          ? JSON.parse(localStorage.getItem('cart'))
+          : []
+      currentCart = currentCart.filter((e) => e.id !== item.id)
+      localStorage.setItem('cart', JSON.stringify(currentCart))
+      this.cartList = currentCart
+      this.$store.commit(cartMutations.REMOVE.DATA, item.id, {
+        root: true,
+      })
     },
   },
 }

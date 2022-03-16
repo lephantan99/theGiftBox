@@ -6,7 +6,7 @@
         class="logo_header cursor-pointer"
       />
       <el-row class="w-1/2 flex" :gutter="20">
-        <el-col :span="12">
+        <el-col :span="8">
           <el-input
             v-model="input"
             placeholder="Tìm kiếm sản phẩm"
@@ -63,6 +63,14 @@
             class="w-12 h-12 text-4xl el-icon-shopping-cart-full cursor-pointer"
           ></i>
         </el-badge>
+        <!-- <el-switch
+          v-model="isEnData"
+          inactive-text="English"
+          active-color="#13ce66"
+          inactive-color="#ff4949"
+          @change="onChangeLanguage"
+        >
+        </el-switch> -->
 
         <p v-if="!auth" class="cursor-pointer" @click="$router.push('/login')">
           {{ $t('header.signInSignUp') }}
@@ -76,7 +84,7 @@
                 icon="el-icon-user-solid"
                 class="bg-gray-300 mr-3"
               ></el-avatar>
-              Admin user
+              {{ $e(auth, 'firstName') }} {{ $e(auth, 'lastName') }}
               <!-- <span class="ml-3 font-bold">
             {{ $e(auth, 'fullName') }}
           </span> -->
@@ -132,6 +140,7 @@ import confirmAction from '~/mixins/confirmActions'
 import { authActions } from '~/store/auth/actions'
 import { productActions } from '~/store/product/actions'
 import { productMutations } from '~/store/product/mutations'
+import { rootMutations } from '~/store/mutations'
 
 export default {
   name: 'Header',
@@ -140,6 +149,7 @@ export default {
     return {
       input: '',
       sort: '',
+      isEnData: null,
       options: [
         { value: 'ASC', label: 'Tăng dần' },
         { value: 'DESC', label: 'Giảm dần' },
@@ -151,7 +161,11 @@ export default {
       auth: (state) => state.auth?.data,
       wishlist: (state) => state.wishlist.data,
       cart: (state) => state.cart.data,
+      isEn: (state) => (state.locale === 'en' ? true : false),
     }),
+  },
+  created() {
+    this.isEnData = this.$store.state.locale === 'en' ? true : false
   },
   methods: {
     ...mapActions({
@@ -160,6 +174,7 @@ export default {
     ...mapMutations({
       setQuery: productMutations.SET.QUERY,
       clearQuery: productMutations.CLEAR.QUERY,
+      setLang: rootMutations.SET.LANG,
     }),
     async onSearch() {
       await this.$router.push('/')
@@ -215,11 +230,25 @@ export default {
         this.$router.push('/client/info')
       }
     },
+    async onChangeLanguage() {
+      if (this.isEnData === true) {
+        // set en
+        // this.setLang('en')
+        this.$changeLocale('en')
+      } else {
+        // set vi
+        // this.setLang('vi')
+        this.$changeLocale('vi')
+      }
+    },
   },
 }
 </script>
 <style lang="scss">
 .logo_header {
   width: 200px;
+}
+.el-switch__label.is-active {
+  color: initial;
 }
 </style>

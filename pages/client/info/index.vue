@@ -56,10 +56,10 @@
               </el-col>
             </el-row>
             <div
-              v-if="!isShow && item.status === 'FINISHED'"
+              v-if="!isShow && item.status === 'DELIVERY'"
               class="flex justify-end"
             >
-              <el-button type="success" @click="onReview(index)">
+              <el-button type="success" @click="onReview(item, index)">
                 Đánh giá
               </el-button>
             </div>
@@ -88,6 +88,16 @@
                   type="type"
                 >
                 </el-input>
+              </InputWrapper>
+              <InputWrapper prop="rating" rules="required" label="Rating">
+                <br />
+                <br />
+                <el-rate
+                  v-model="form.rating"
+                  :texts="['oops', 'disappointed', 'normal', 'good', 'great']"
+                  show-text
+                >
+                </el-rate>
               </InputWrapper>
               <el-row class="flex justify-end">
                 <el-button
@@ -193,8 +203,10 @@ export default {
       form: {
         title: null,
         content: null,
+        rating: null,
       },
       orderId: null,
+      odId: null,
     }
   },
   computed: mapState({
@@ -206,6 +218,7 @@ export default {
     ...mapActions({
       getOrdesOfUser: orderActions.FETCH.DATA,
       submitReview: reviewActions.SUBMIT.SINGLE,
+      updateOrder: orderActions.UPDATE.SINGLE,
     }),
     ...mapMutations({
       setQuery: orderMutations.SET.QUERY,
@@ -222,16 +235,35 @@ export default {
         }
         this.submitReview(payload)
       })
+      this.updateOrder({
+        form: { status: 'FINISHED' },
+        id: this.odId,
+      })
+      // let currentReview =
+      //   JSON.parse(localStorage.getItem('reviewed')) !== null
+      //     ? JSON.parse(localStorage.getItem('reviewed'))
+      //     : []
+      // if (currentReview !== null && currentReview !== undefined) {
+      //   const review = []
+      //   review.push(this.odId)
+      //   localStorage.setItem('reviewed', JSON.stringify(review))
+      // } else {
+      //   currentReview.push(this.odId)
+      //   localStorage.setItem('reviewed', JSON.stringify(currentReview))
+      // }
       // this.form = {
       //   ...this.form,
       //   products,
       // }
       // this.submitReview(this.form)
     },
-    onReview(index) {
+    onReview(item, index) {
+      // index trong array
       this.orderId = null
       this.orderId = index + 1
       this.isShow = !this.isShow
+      // id of order
+      this.odId = item.id
     },
   },
 }
